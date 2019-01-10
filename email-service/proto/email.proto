@@ -1,6 +1,6 @@
 syntax = "proto3"
 
-package poetnote.service.email
+package poetnote.service.email;
 
 service EmailService {
     // 1.发送
