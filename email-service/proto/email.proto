@@ -1,0 +1,39 @@
+syntax = "proto3"
+
+package poetnote.service.email
+
+service EmailService {
+    // 1.发送
+    rpc SendEmail (SendRequest) returns (SendResponse){}
+
+    // 2.查询
+    rpc SelectEmail (SelectRequest) returns (SelectResponse){}
+
+    // 3.删除某一条
+    rpc DeleteEmail (DeleteRequest) returns (DeleteResponse){}
+
+}
+// 
+message SendRequest {
+
+}
+// 
+message SendResponse {
+
+}
+// 
+message SelectRequest {
+
+}
+// 
+message SelectResponse {
+
+}
+// 
+message DeleteRequest {
+
+}
+// 
+message DeleteResponse {
+
+}
