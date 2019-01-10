@@ -3,13 +3,13 @@ package poetnote.service.email;
 
 service EmailService {
     // 1.发送
-    rpc SendEmail (SendRequest) returns (SendResponse){}
+    rpc Create (CreateRequest) returns (CreateResponse){}
 
     // 2.查询
-    rpc SelectEmail (SelectRequest) returns (SelectResponse){}
+    rpc Select (SelectRequest) returns (SelectResponse){}
 
     // 3.删除某一条
-    rpc DeleteEmail (DeleteRequest) returns (DeleteResponse){}
+    rpc Delete (DeleteRequest) returns (DeleteResponse){}
 
 }
 // 邮箱结构
@@ -18,7 +18,7 @@ message EmailAddr {
     string title = 2;
 }
 // 发送请求
-message SendRequest {
+message CreateRequest {
     EmailAddr from = 1;
     string fromPasswd = 2;
     repeated EmailAddr to = 3;
@@ -28,7 +28,7 @@ message SendRequest {
     string user_id = 7;
 }
 // 发送回报
-message SendResponse {
+message CreateResponse {
     int64 code = 1;
     string msg = 2;
 }

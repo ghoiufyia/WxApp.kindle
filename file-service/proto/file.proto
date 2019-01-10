@@ -1,0 +1,46 @@
+syntax = "proto3";
+package poetnote.service.file;
+
+service FileService {
+    rpc Create (CreateRequest) returns (CreateResponse) {}
+    rpc Select (SelectRequest) returns (SelectResponse) {}
+    rpc Delete (DeleteRequest) returns (DeleteResponse) {}
+}
+message File {
+    int64 id = 1;
+    int64 user_id = 2;
+    string path = 3;
+    string create_time = 8;
+}
+// 发送请求
+message CreateRequest {
+    int64 user_id = 1;
+    string path = 2;
+}
+// 发送回报
+message CreateResponse {
+    int64 code = 1;
+    string msg = 2;
+}
+// 查询请求
+message SelectRequest {
+    string user_id = 1;
+    int64 limit = 2;
+    int64 page = 3;
+}
+// 查询回报
+message SelectResponse {
+    int64 code = 1;
+    string msg = 2;
+    int64 count = 3;
+    repeated File list = 4;
+}
+// 删除请求
+message DeleteRequest {
+    int64 id = 1;
+}
+// 删除回报
+message DeleteResponse {
+    int64 code = 1;
+    string msg = 2;
+}
