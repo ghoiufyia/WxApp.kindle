@@ -4,15 +4,11 @@
 package poetnote_service_email
 
 import (
+	context "context"
 	fmt "fmt"
 	proto "github.com/golang/protobuf/proto"
+	grpc "google.golang.org/grpc"
 	math "math"
-)
-
-import (
-	client "github.com/micro/go-micro/client"
-	server "github.com/micro/go-micro/server"
-	context "golang.org/x/net/context"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -562,95 +558,144 @@ var fileDescriptor_90f7cc01862a1851 = []byte{
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ context.Context
-var _ client.Option
-var _ server.Option
+var _ grpc.ClientConn
 
-// Client API for EmailService service
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the grpc package it is being compiled against.
+const _ = grpc.SupportPackageIsVersion4
 
+// EmailServiceClient is the client API for EmailService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type EmailServiceClient interface {
 	// 1.发送
-	Create(ctx context.Context, in *CreateRequest, opts ...client.CallOption) (*CreateResponse, error)
+	Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error)
 	// 2.查询
-	Select(ctx context.Context, in *SelectRequest, opts ...client.CallOption) (*SelectResponse, error)
+	Select(ctx context.Context, in *SelectRequest, opts ...grpc.CallOption) (*SelectResponse, error)
 	// 3.删除某一条
-	Delete(ctx context.Context, in *DeleteRequest, opts ...client.CallOption) (*DeleteResponse, error)
+	Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error)
 }
 
 type emailServiceClient struct {
-	c           client.Client
-	serviceName string
+	cc *grpc.ClientConn
 }
 
-func NewEmailServiceClient(serviceName string, c client.Client) EmailServiceClient {
-	if c == nil {
-		c = client.NewClient()
-	}
-	if len(serviceName) == 0 {
-		serviceName = "poetnote.service.email"
-	}
-	return &emailServiceClient{
-		c:           c,
-		serviceName: serviceName,
-	}
+func NewEmailServiceClient(cc *grpc.ClientConn) EmailServiceClient {
+	return &emailServiceClient{cc}
 }
 
-func (c *emailServiceClient) Create(ctx context.Context, in *CreateRequest, opts ...client.CallOption) (*CreateResponse, error) {
-	req := c.c.NewRequest(c.serviceName, "EmailService.Create", in)
+func (c *emailServiceClient) Create(ctx context.Context, in *CreateRequest, opts ...grpc.CallOption) (*CreateResponse, error) {
 	out := new(CreateResponse)
-	err := c.c.Call(ctx, req, out, opts...)
+	err := c.cc.Invoke(ctx, "/poetnote.service.email.EmailService/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *emailServiceClient) Select(ctx context.Context, in *SelectRequest, opts ...client.CallOption) (*SelectResponse, error) {
-	req := c.c.NewRequest(c.serviceName, "EmailService.Select", in)
+func (c *emailServiceClient) Select(ctx context.Context, in *SelectRequest, opts ...grpc.CallOption) (*SelectResponse, error) {
 	out := new(SelectResponse)
-	err := c.c.Call(ctx, req, out, opts...)
+	err := c.cc.Invoke(ctx, "/poetnote.service.email.EmailService/Select", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *emailServiceClient) Delete(ctx context.Context, in *DeleteRequest, opts ...client.CallOption) (*DeleteResponse, error) {
-	req := c.c.NewRequest(c.serviceName, "EmailService.Delete", in)
+func (c *emailServiceClient) Delete(ctx context.Context, in *DeleteRequest, opts ...grpc.CallOption) (*DeleteResponse, error) {
 	out := new(DeleteResponse)
-	err := c.c.Call(ctx, req, out, opts...)
+	err := c.cc.Invoke(ctx, "/poetnote.service.email.EmailService/Delete", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// Server API for EmailService service
-
-type EmailServiceHandler interface {
+// EmailServiceServer is the server API for EmailService service.
+type EmailServiceServer interface {
 	// 1.发送
-	Create(context.Context, *CreateRequest, *CreateResponse) error
+	Create(context.Context, *CreateRequest) (*CreateResponse, error)
 	// 2.查询
-	Select(context.Context, *SelectRequest, *SelectResponse) error
+	Select(context.Context, *SelectRequest) (*SelectResponse, error)
 	// 3.删除某一条
-	Delete(context.Context, *DeleteRequest, *DeleteResponse) error
+	Delete(context.Context, *DeleteRequest) (*DeleteResponse, error)
 }
 
-func RegisterEmailServiceHandler(s server.Server, hdlr EmailServiceHandler, opts ...server.HandlerOption) {
-	s.Handle(s.NewHandler(&EmailService{hdlr}, opts...))
+func RegisterEmailServiceServer(s *grpc.Server, srv EmailServiceServer) {
+	s.RegisterService(&_EmailService_serviceDesc, srv)
 }
 
-type EmailService struct {
-	EmailServiceHandler
+func _EmailService_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EmailServiceServer).Create(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/poetnote.service.email.EmailService/Create",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EmailServiceServer).Create(ctx, req.(*CreateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-func (h *EmailService) Create(ctx context.Context, in *CreateRequest, out *CreateResponse) error {
-	return h.EmailServiceHandler.Create(ctx, in, out)
+func _EmailService_Select_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SelectRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EmailServiceServer).Select(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/poetnote.service.email.EmailService/Select",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EmailServiceServer).Select(ctx, req.(*SelectRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-func (h *EmailService) Select(ctx context.Context, in *SelectRequest, out *SelectResponse) error {
-	return h.EmailServiceHandler.Select(ctx, in, out)
+func _EmailService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(EmailServiceServer).Delete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/poetnote.service.email.EmailService/Delete",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(EmailServiceServer).Delete(ctx, req.(*DeleteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
-func (h *EmailService) Delete(ctx context.Context, in *DeleteRequest, out *DeleteResponse) error {
-	return h.EmailServiceHandler.Delete(ctx, in, out)
+var _EmailService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "poetnote.service.email.EmailService",
+	HandlerType: (*EmailServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Create",
+			Handler:    _EmailService_Create_Handler,
+		},
+		{
+			MethodName: "Select",
+			Handler:    _EmailService_Select_Handler,
+		},
+		{
+			MethodName: "Delete",
+			Handler:    _EmailService_Delete_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "proto/email.proto",
 }
