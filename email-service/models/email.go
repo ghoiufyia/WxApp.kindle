@@ -3,7 +3,6 @@ package models
 import (
 	"database/sql"
 	"github.com/jinzhu/gorm"
-	"github.com/RichardKnop/uuid"
 )
 
 type BaseModel struct {
@@ -11,13 +10,13 @@ type BaseModel struct {
 	ID        string `gorm:"primary_key"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	DeletedAt *time.Time
+	DeletedAt time.Time
 }
 
 type TimestampModel struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	DeletedAt *time.Time
+	DeletedAt time.Time
 }
 
 type UserEmail struct {

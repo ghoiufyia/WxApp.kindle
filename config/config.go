@@ -15,6 +15,7 @@ type DatabaseConfig struct {
 
 type Config struct {
 	Database	DatabaseConfig
+	ServerPort    int  `default:"8080"`
 }
 
 var DefaultConfig = &Config{
@@ -27,7 +28,8 @@ var DefaultConfig = &Config{
 		DatabaseName: "blog",
 		MaxIdleConns: 5,
 		MaxOpenConns: 5,
-	}
+	},
+	ServerPort:	8000,
 }
 
 func NewDefaultConfig() *Config {

@@ -35,3 +35,4 @@ func NewDatabase(cfg *config.Config) (*gorm.DB,error) {
 	}
 	return nil, fmt.Errorf("Database type %s not supported", cfg.Database.Type)
 }
+
