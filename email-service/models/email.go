@@ -1,13 +1,36 @@
 package models
 
 import (
-	// "fmt"
-	"github.com/astaxie/beego/orm"
-    _ "github.com/go-sql-driver/mysql"
+	"database/sql"
+	"github.com/jinzhu/gorm"
+	"github.com/RichardKnop/uuid"
 )
 
-func init(){
-	orm.RegisterDriver("mysql", orm.DRMySQL)
-
-    orm.RegisterDataBase("poetnote", "mysql", "root:Sn93007997@tcp(101.132.37.148:3306)/poetnote?charset=utf8")
+type BaseModel struct {
+	gorm.model
+	ID        string `gorm:"primary_key"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt *time.Time
 }
+
+type TimestampModel struct {
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt *time.Time
+}
+
+type UserEmail struct {
+	BaseModel
+	UserId		string `gorm:"unique;not null;default ''"`	
+	ToEmail		string `gorm:"type:varchar(100)"`
+}
+
+type Email struct {
+	BaseModel
+	UserId		string `gorm:"unique;not null;default ''"`	
+	ToEmail		string `gorm:"type:varchar(100)"`
+	FilePath	string `gorm:"type:varchar(255)"`
+}
+
+
