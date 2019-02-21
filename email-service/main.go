@@ -8,14 +8,14 @@ import (
 	"log"
 	"WxApp.kindle/email-service/services"
 	email_pb "WxApp.kindle/email-service/proto/email"
-
 )
 
 func main()  {
 	configFile := ""
 	cfg := config.NewConfig(configFile)
 	port := cfg.ServerPort
-	listener,err := net.Listen("tcp",string(port))
+
+	listener,err := net.Listen("tcp",":8000")
 	if err != nil {
 		log.Fatalf("failed to listen: %v",err)
 	}
@@ -25,9 +25,9 @@ func main()  {
 	if err == nil {
 		log.Fatalf("failed to open database: %v",err)
 	}
-	emailService := &EmailService{db}
-	email_pb.RegisterEmailServiceServer(server,&emailService)
-	if err := ser.Serve(listener);err != nil {
+	emailServer := &services.EmailServer{db}
+	email_pb.RegisterEmailServiceServer(server,emailServer)
+	if err := server.Serve(listener);err != nil {
 		log.Fatalf("failed to serve: %v",err)
 	}
 }

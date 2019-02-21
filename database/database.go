@@ -3,13 +3,13 @@ package database
 import (
 	"github.com/jinzhu/gorm"
 	"WxApp.kindle/config"
-
+	"fmt"
 	// Driver
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
 func NewDatabase(cfg *config.Config) (*gorm.DB,error) {
-	if cfg.Dabase.Type == "mysql" {
+	if cfg.Database.Type == "mysql" {
 		args := fmt.Sprintf(
 			"%s:%s@(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",
 			cfg.Database.User,
