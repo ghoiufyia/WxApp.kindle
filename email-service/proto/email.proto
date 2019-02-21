@@ -27,6 +27,16 @@ message CreateEmailResponse {
     int32 Code = 1;
     string Msg = 2;
 }
+message EditEmailRequest{
+    string Id = 1;
+    string Email = 2;
+}
+
+message EditEmailResponse {
+    int32 Code = 1;
+    string Msg = 2;
+}
+
 // 发送请求
 message CreateRequest {
     string UserId = 1;
@@ -50,7 +60,7 @@ message Email {
     string ToEmail = 3;
     string FilePath = 4;
     string CreatedAt = 5;
-    string UpdatedAt = 5;
+    string UpdatedAt = 6;
 }
 // 查询回报
 message SelectResponse {
