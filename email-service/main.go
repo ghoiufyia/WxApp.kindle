@@ -15,7 +15,7 @@ func main()  {
 	cfg := config.NewConfig(configFile)
 	port := cfg.ServerPort
 
-	listener,err := net.Listen("tcp",":8000")
+	listener,err := net.Listen("tcp",":"+strconv.Itoa(cfg.ServerPort))
 	if err != nil {
 		log.Fatalf("failed to listen: %v",err)
 	}

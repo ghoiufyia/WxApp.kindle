@@ -23,7 +23,7 @@ var DefaultConfig = &Config{
 	Database: DatabaseConfig{
 		Type:         "mysql",
 		Host:         "101.132.37.148",
-		Port:         3306,
+		Port:         33061,
 		User:         "root",
 		Password:     "Sn93007997",
 		DatabaseName: "blog",

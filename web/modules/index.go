@@ -1,0 +1,50 @@
+package modules
+
+import (
+	"net/http"
+	"encoding/json"
+	email_pb "WxApp.kindle/email-service/proto/email"
+	"google.golang.org/grpc"
+	"log"
+	"context"
+)
+
+const (
+	ADDRESS           = "127.0.0.1:8001"
+	DEFAULT_INFO_FILE = "order.json"
+)
+
+func (s *Service)index (w http.ResponseWriter, r *http.Request)  {
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	w.WriteHeader(200)
+
+	// 连接远端服务
+	conn,err := grpc.Dial(ADDRESS,grpc.WithInsecure())
+	if err != nil {
+		log.Fatalf("connect error %v",err)
+	}
+	defer conn.Close()
+	// 定义客户端
+	client := email_pb.NewEmailServiceClient(conn)
+
+	// 调用 RPC
+	resp, err := client.CreateEmail(context.Background(), createEmailRequest)
+	if err != nil {
+		log.Fatalf("create order error: %v", err)
+	}
+
+	log.Printf("created: %t", resp.Msg)
+
+	json.NewEncoder(w).Encode(map[string]interface{}{
+		"msg": "ok",
+	})
+}
+
+func (s *Service) SetAge (age int32) (error) {
+	s.age = age
+	return nil
+}
+
+func (s *Service) GetAge () (int32,error) {
+	return s.age,nil
+}
