@@ -26,7 +26,7 @@ var DefaultConfig = &Config{
 		Port:         33061,
 		User:         "root",
 		Password:     "Sn93007997",
-		DatabaseName: "blog",
+		DatabaseName: "kindle",
 		MaxIdleConns: 5,
 		MaxOpenConns: 5,
 	},

@@ -8,6 +8,7 @@ import (
 	"log"
 	"WxApp.kindle/email-service/services"
 	email_pb "WxApp.kindle/email-service/proto/email"
+	"strconv"
 )
 
 func main()  {
@@ -22,9 +23,10 @@ func main()  {
 	log.Printf("listen on: %d\n", port)
 	server := grpc.NewServer()
 	db,err := database.NewDatabase(cfg)
-	if err == nil {
+	if err != nil {
 		log.Fatalf("failed to open database: %v",err)
 	}
+	log.Printf("listen on: %s\n", "database is ok")
 	emailServer := &services.EmailServer{db}
 	email_pb.RegisterEmailServiceServer(server,emailServer)
 	if err := server.Serve(listener);err != nil {

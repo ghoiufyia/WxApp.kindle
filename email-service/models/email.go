@@ -2,22 +2,20 @@ package models
 
 import (
 	// "database/sql"
-	"github.com/jinzhu/gorm"
-	"time"
+	// "time"
 )
 
 type BaseModel struct {
-	gorm.Model
 	ID        string `gorm:"primary_key"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	DeletedAt time.Time
+	CreatedAt int64
+	UpdatedAt int64
+	DeletedAt int64
 }
 
 type TimestampModel struct {
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	DeletedAt time.Time
+	CreatedAt int64
+	UpdatedAt int64
+	DeletedAt int64
 }
 
 type UserEmail struct {

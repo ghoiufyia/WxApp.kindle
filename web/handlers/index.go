@@ -10,7 +10,7 @@ type IndexHandler struct {
 	age		int32
 }
 
-func  Index (w http.ResponseWriter, r *http.Request)  {
+func Index (w http.ResponseWriter, r *http.Request)  {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.WriteHeader(200)
 	json.NewEncoder(w).Encode(map[string]interface{}{

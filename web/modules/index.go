@@ -10,11 +10,11 @@ import (
 )
 
 const (
-	ADDRESS           = "127.0.0.1:8001"
+	ADDRESS           = "127.0.0.1:8000"
 	DEFAULT_INFO_FILE = "order.json"
 )
 
-func (s *Service)index (w http.ResponseWriter, r *http.Request)  {
+func (s *Service) index (w http.ResponseWriter, r *http.Request)  {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.WriteHeader(200)
 
@@ -27,14 +27,16 @@ func (s *Service)index (w http.ResponseWriter, r *http.Request)  {
 	// 定义客户端
 	client := email_pb.NewEmailServiceClient(conn)
 
+	var resuest = email_pb.CreateEmailRequest{UserId:"fghfyffffffffjy",Email:"ddd@11.com"}
+
 	// 调用 RPC
-	resp, err := client.CreateEmail(context.Background(), createEmailRequest)
+	resp, err := client.CreateEmail(context.Background(), &resuest)
 	if err != nil {
-		log.Fatalf("create order error: %v", err)
+		log.Printf("create email error: %v", err)
 	}
 
 	log.Printf("created: %t", resp.Msg)
-
+	conn.Close()
 	json.NewEncoder(w).Encode(map[string]interface{}{
 		"msg": "ok",
 	})

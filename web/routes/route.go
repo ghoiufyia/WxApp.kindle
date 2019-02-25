@@ -22,10 +22,10 @@ func (r *Routes)GetRoutes() []Route {
 	return r.MyRoutes
 }
 
-// func (r *Routes)RegisterRoutes(router *mux.Router) {
-// 	subRouter := router.PathPrefix(r.Prefix).Subrouter()
-// 	addRoute(r.GetRoutes(),router)
-// }
+func (r *Routes)RegisterRoutes(router *mux.Router) {
+	subRouter := router.PathPrefix(r.Prefix).Subrouter()
+	addRoute(r.GetRoutes(),router)
+}
 
 func addRoute(routes []Route,router *mux.Router) {
 	if len(routes) > 0 {
