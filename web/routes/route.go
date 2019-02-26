@@ -9,13 +9,16 @@ type Route struct {
 	Name		string
 	Method		string
 	Pattern		string
-	HandlerFunc	http.HandlerFunc
+	Controller	reflect.Type
+	Action		string
 }
 
 type Routes struct {
 	Prefix		string
 	MyRoutes 	[]Route
 }
+
+type 
 
 
 func (r *Routes)GetRoutes() []Route {

@@ -10,20 +10,20 @@ import(
 )
 
 var wg sync.WaitGroup
-func main(){
-	var area = []string{"bj","tj","hb","sx","nmg","ln","jl","hlj","sh","js","zj","ah","fj","jx","sd","hn","hub","hun","gd","gx","hain","cq","sc","gz","yn","xz","sxs","gs","qh","nx","xj","tw","xg","am"}
-	for _,a := range area {
-		url := "http://www.shifansheng.net/rule/"+a+"_list.htaccess"
-		url1 := "http://www.shifansheng.net/rule/"+a+".htaccess"
-		wg.Add(1)
-		go spider(a,url)
-		wg.Add(1)
-		go spider(a,url1)
-	}
+// func main(){
+// 	var area = []string{"bj","tj","hb","sx","nmg","ln","jl","hlj","sh","js","zj","ah","fj","jx","sd","hn","hub","hun","gd","gx","hain","cq","sc","gz","yn","xz","sxs","gs","qh","nx","xj","tw","xg","am"}
+// 	for _,a := range area {
+// 		url := "http://www.shifansheng.net/rule/"+a+"_list.htaccess"
+// 		url1 := "http://www.shifansheng.net/rule/"+a+".htaccess"
+// 		wg.Add(1)
+// 		go spider(a,url)
+// 		wg.Add(1)
+// 		go spider(a,url1)
+// 	}
 
 	
-	wg.Wait()
-}
+// 	wg.Wait()
+// }
 
 func spider(area string,url string) (err error) {
 	content,err := getUrlData(url)

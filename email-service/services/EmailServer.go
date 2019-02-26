@@ -1,9 +1,9 @@
 package services
 
 import (
-	email_pb "WxApp.kindle/email-service/proto/email"
+	email_pb "github.com/ghoiufyiaWxApp.kindle/email-service/proto/email"
 	"context"
-	"WxApp.kindle/email-service/models"
+	"github.com/ghoiufyiaWxApp.kindle/email-service/models"
 	"github.com/jinzhu/gorm"
 	"time"
 	"github.com/RichardKnop/uuid"
