@@ -1,34 +1,35 @@
 package main
 
 import (
-	"net/http"
-	"log"
-	"fmt"
-	"github.com/gorilla/mux"
-	// "WxApp.kindle/web/routes"
+	// "net/http"
+	// "log"
+	// "fmt"
+	// "github.com/gorilla/mux"
 	// "github.com/urfave/negroni"
-	"WxApp.kindle/web/modules"
+	// "github.com/ghoiufyia/WxApp.kindle/web/modules"
+	_ "github.com/ghoiufyia/WxApp.kindle/web/routes"
+	"github.com/ghoiufyia/WxApp.kindle/web/app"
 )
 var appName = "app"
 
 func main()  {
-	port := "6767"
-	log.Println("Starting HTTP service at " + port)
-	fmt.Printf("Starting %v\n", appName)
+	// port := "6767"
+	// log.Println("Starting HTTP service at " + port)
+	// fmt.Printf("Starting %v\n", appName)
 	
-	service := modules.NewService("app",16)
+	// service := modules.NewService("app",16)
 
-	r := mux.NewRouter()
-	service.RegisterRoutes(r,"/v1")
-	http.Handle("/", r)
+	// r := mux.NewRouter()
+	// service.RegisterRoutes(r,"/v1")
+	// http.Handle("/", r)
 	
-    err := http.ListenAndServe(":"+port, nil) // Goroutine will block here
+    // err := http.ListenAndServe(":"+port, nil) // Goroutine will block here
 
-    if err != nil {
-        log.Println("An error occured starting HTTP listener at port " + port)
-        log.Println("Error: " + err.Error())
-    }
+    // if err != nil {
+    //     log.Println("An error occured starting HTTP listener at port " + port)
+    //     log.Println("Error: " + err.Error())
+    // }
 	
-	
-
+	myApp := app.NewApp()
+	myApp.Run()
 }

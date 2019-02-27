@@ -3,7 +3,7 @@ package modules
 import (
 	"net/http"
 	"encoding/json"
-	email_pb "WxApp.kindle/email-service/proto/email"
+	email_pb "github.com/ghoiufyia/WxApp.kindle/email-service/proto/email"
 	"google.golang.org/grpc"
 	"log"
 	"context"
