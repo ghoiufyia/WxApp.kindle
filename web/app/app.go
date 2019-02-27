@@ -2,20 +2,22 @@ package app
 
 import (
 	// "github.com/gorilla/mux"
-	// "net/http"
+	"net/http"
 	"fmt"
 )
 
 type App struct {
-	// Server 		*http.Server
-	Routes		*RegisterRoutes
+	Handlers		*RegisterRoutes
+	Server 		*http.Server
 }
 
 func NewApp() *App{
 	routes := NewRegisterRoutes()
-	return &App{Routes:routes}
+	return &App{Handlers:routes,Server:&http.Server{}}
 }
 
 func (a *App)Run(){
-	fmt.Printf("%v",a.Routes)
+	fmt.Printf("%v",a.Handlers)
+	a.Server.Handler = a.Handlers
+
 }

@@ -1,47 +1,29 @@
 package main
 
 import (
-	"reflect"
+
+
 	"fmt"
 )
 
-type T struct {}
-
-type M interface {
-	Hello() string
-}
 
 func main() {
-    // name := "Hello"
-    t := &T{}
-	// reflect.ValueOf(t).MethodByName(name).Call(nil)
-	
-	fmt.Println(t)
+	array := [][]int32{{1,2},{1,4},{5,4},{5,6},{10,10},{10,2}}
+	fmt.Println(len(array))
 
-
-	ttt := reflect.TypeOf(t)
-	fmt.Println(ttt)
-
-	var m M
-	// m = t
-
-	temp := reflect.TypeOf(m)
-	// temp := reflect.Indirect(reflect.ValueOf(&T{})).Type()
-	fmt.Println(temp)
-
-	// t.Add(&T{})
+	recyle(array,5)
 
 }
 
-func (t *T) Do() {
-    fmt.Println("hello")
-}
 
-func (t *T) Hello() string {
-	return "hello"
-}
-
-func (t *T)Add(c M) {
-	temp := reflect.Indirect(reflect.ValueOf(c)).Type()
-	fmt.Println(temp)
+func recyle(a [][]int32,x int32) {
+	var length int32 = 0;
+	fmt.Println(len(a))
+	for i:=len(a)-1;i>=0;i-- {
+		a[i][0] = a[i][0] - a[0][0];
+		a[i][1] = a[i][1] - a[0][1];
+		fmt.Println(a[i])
+		length = a[i][0] + a[i][1];
+	}
+	fmt.Println(length)
 }

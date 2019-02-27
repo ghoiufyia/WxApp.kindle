@@ -1,7 +1,7 @@
 package routes
 
 import (
-	// "github.com/ghoiufyia/WxApp.kindle/web/handlers"
+	// "github.com/ghoiufyia/WxApp.kindle/web/app"
 )
 
 // var Api = Routes{
