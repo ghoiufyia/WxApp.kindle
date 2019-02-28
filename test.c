@@ -1,42 +1,87 @@
 #include <stdio.h>
 
-typedef node struct {
-    int num;
-    node *next;
-}
+struct ListNode {
+    int val;
+    struct ListNode *next;
+};
+
+struct ListNode* newList(int[] arr,int i);
 
 int main() {
-    node *result = {
-        num = 0;
-        node *next = null;
-    };
+    
+    struct ListNode* l1 =  newList([1,2,4],3);
+    struct ListNode* l2 =  newList([1,2,3,4],4);
+
+
+    struct ListNode* l3 = mergeTwoLists(l1,l2);
+
+    while(l3 != NULL) {
+        printf("%d-",l3->val);
+        l3 = l3->next;
+    }
 
 }
 
-node *add(m *node,n *node,node *result) {
-    node *i = m;
-    node *j = n;
-    node *r = result;
-    node *temp;
+struct ListNode* newList(int[] arr,int i) {
+    struct ListNode *head;
+    struct ListNode *m = head;
+    struct ListNode *t = NULL;
 
-    if(i->next != null) {
-        i = i->next;
+    for (j=0;j<i;j++) {
+        t.val = arr[j];
+        t.next = NULL;
+        m.next = t;
+        t = NULL;
+        m = m->next;
     }
-    if(j->next != null) {
-        j = j->next;
-    }
-    if (i->next != null && j->next != null) {
-        temp = add(i,j,r);
-        if (temp->num > 9) {
-            r->num = r->num + 1;
-            temp->num = temp->num - 10;
-            r->next = temp;
+    return head;
+}
+
+
+struct ListNode* mergeTwoLists(struct ListNode* l1, struct ListNode* l2) {
+    struct ListNode *m = l1;
+    struct ListNode *n = l2;
+    struct ListNode *temp;
+    struct ListNode *t = temp;
+
+    while (m != NULL && n != NULL) {
+        if(m->val <= n->val) {
+            printf("%d-",m->val);
+            temp->next = m;
+            temp->next->next = NULL;
+            m = m->next;
+        } else {
+            printf("-|%d|-",n->val);
+            temp->next = n;
+            temp->next->next = NULL;
+            n = n->next;
         }
     }
-    int sum;
-    sum = i->num + j->num;
-    if (sum > 9) {
-        temp->num = sum;
+    if (m->next != NULL) {
+        temp->next = m;
     }
-    return temp;
+    if (n->next != NULL) {
+        temp->next = n;
+    }
+    
+    // while (m->next != NULL || n->next != NULL) {
+    //     if(m) {
+    //         temp->next = m;
+    //     } else if(!n) {
+    //         temp->next = n;
+    //     }else if (m->val <= n->val) {
+    //         temp->next = m;
+    //         if (m->next != NULL) {
+    //             m = m->next;
+    //         }
+    //     } else {
+    //         temp->next = n;
+    //         if (n->next != NULL) {
+    //             n = n->next;
+    //         }
+    //     }
+    //     temp = temp->next;
+    // }
+  
+    return t->next;
 }
