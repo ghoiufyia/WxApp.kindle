@@ -8,8 +8,8 @@ struct ListNode {
 struct ListNode* newList(int*,int);
 
 int main() {
-    int a1 = [1,2,4];
-    int a2 = [1,2,3,4];
+    int a1 = {1,2,4};
+    int a2 = {1,2,3,4};
     struct ListNode* l1 =  newList(a1,3);
     struct ListNode* l2 =  newList(a2,4);
 
@@ -23,12 +23,12 @@ int main() {
 
 }
 
-struct ListNode* newList(int* arr,int i) {
+struct ListNode* newList(int *arr,int i) {
     struct ListNode *head;
     struct ListNode *m = head;
     struct ListNode *t;
-
-    for (int j=0;j<i;j++) {
+    int j = 0;
+    for (j=0;j<i;j++) {
         t.val = arr[j];
         t.next = NULL;
         m.next = t;
