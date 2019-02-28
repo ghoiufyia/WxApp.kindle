@@ -8,8 +8,8 @@ struct ListNode {
 struct ListNode* newList(int*,int);
 
 int main() {
-    int a1 = {1,2,4};
-    int a2 = {1,2,3,4};
+    int a1[3] = {1,2,4};
+    int a2[4] = {1,2,3,4};
     struct ListNode* l1 =  newList(a1,3);
     struct ListNode* l2 =  newList(a2,4);
 
