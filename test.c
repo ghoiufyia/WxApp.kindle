@@ -5,7 +5,7 @@ struct ListNode {
     struct ListNode *next;
 };
 
-struct ListNode* newList(int[] arr,int i);
+struct ListNode* newList(int*,int);
 
 int main() {
     
@@ -22,7 +22,7 @@ int main() {
 
 }
 
-struct ListNode* newList(int[] arr,int i) {
+struct ListNode* newList(int* arr,int i) {
     struct ListNode *head;
     struct ListNode *m = head;
     struct ListNode *t = NULL;
