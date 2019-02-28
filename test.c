@@ -8,9 +8,10 @@ struct ListNode {
 struct ListNode* newList(int*,int);
 
 int main() {
-    
-    struct ListNode* l1 =  newList([1,2,4],3);
-    struct ListNode* l2 =  newList([1,2,3,4],4);
+    int a1 = [1,2,4];
+    int a2 = [1,2,3,4];
+    struct ListNode* l1 =  newList(a1,3);
+    struct ListNode* l2 =  newList(a2,4);
 
 
     struct ListNode* l3 = mergeTwoLists(l1,l2);
@@ -25,9 +26,9 @@ int main() {
 struct ListNode* newList(int* arr,int i) {
     struct ListNode *head;
     struct ListNode *m = head;
-    struct ListNode *t = NULL;
+    struct ListNode *t;
 
-    for (j=0;j<i;j++) {
+    for (int j=0;j<i;j++) {
         t.val = arr[j];
         t.next = NULL;
         m.next = t;
