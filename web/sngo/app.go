@@ -1,10 +1,18 @@
-package app
+package sapp
 
 import (
 	// "github.com/gorilla/mux"
 	"net/http"
 	"fmt"
 )
+
+var (
+	GApp *App
+)
+
+func init() {
+	GApp = NewApp()
+}
 
 type App struct {
 	Handlers		*RegisterRoutes
@@ -18,6 +26,14 @@ func NewApp() *App{
 
 func (a *App)Run(){
 	fmt.Printf("%v",a.Handlers)
-	a.Server.Handler = a.Handlers
+	// a.Server.Handler = a.Handlers
 
 }
+
+// app.Server.Handler = app.Handlers
+// 	for i := len(mws) - 1; i >= 0; i-- {
+// 		if mws[i] == nil {
+// 			continue
+// 		}
+// 		app.Server.Handler = mws[i](app.Server.Handler)
+// 	}

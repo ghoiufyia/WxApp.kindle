@@ -8,9 +8,8 @@ import (
 	// "github.com/urfave/negroni"
 	// "github.com/ghoiufyia/WxApp.kindle/web/modules"
 	_ "github.com/ghoiufyia/WxApp.kindle/web/routes"
-	"github.com/ghoiufyia/WxApp.kindle/web/app"
+	"github.com/ghoiufyia/WxApp.kindle/web/sapp"
 )
-var appName = "app"
 
 func main()  {
 	// port := "6767"
@@ -30,6 +29,5 @@ func main()  {
     //     log.Println("Error: " + err.Error())
     // }
 	
-	myApp := app.NewApp()
-	myApp.Run()
+	app.Run();
 }
