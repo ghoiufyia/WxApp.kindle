@@ -27,3 +27,5 @@ func recyle(a [][]int32,x int32) {
 	}
 	fmt.Println(length)
 }
+
+func test() {}
