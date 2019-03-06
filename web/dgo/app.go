@@ -1,4 +1,4 @@
-package sapp
+package dgo
 
 import (
 	// "github.com/gorilla/mux"
@@ -7,15 +7,15 @@ import (
 )
 
 var (
-	GApp *App
+	DApp *App
 )
 
 func init() {
-	GApp = NewApp()
+	DApp = NewApp()
 }
 
 type App struct {
-	Handlers		*RegisterRoutes
+	Handlers	*RegisterRoutes
 	Server 		*http.Server
 }
 

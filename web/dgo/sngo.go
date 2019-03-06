@@ -1,4 +1,4 @@
-package sngo
+package dgo
 
 
 import (
