@@ -46,7 +46,7 @@ func (rm *RouteMap)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	vc := reflect.New(rm.Routes[0].Controller)
 	method := vc.MethodByName("Index")
 	in := make([]reflect.Value, 1)
-	ct := &context.Context{ResponseWriter: w, Request: r, Params: params}
+	ctx := context.Context{ResponseWriter: w, Request: r, Params: params}
 	in[0] = reflect.ValueOf(ct)
 	method.Call(in)
 
