@@ -8,7 +8,7 @@ import (
 	// "github.com/urfave/negroni"
 	// "github.com/ghoiufyia/WxApp.kindle/web/modules"
 	_ "github.com/ghoiufyia/WxApp.kindle/web/routes"
-	"github.com/ghoiufyia/WxApp.kindle/web/sapp"
+	"github.com/ghoiufyia/WxApp.kindle/web/dogo"
 )
 
 func main()  {
@@ -29,5 +29,5 @@ func main()  {
     //     log.Println("Error: " + err.Error())
     // }
 	
-	app.Run();
+	dogo.DoApp.Run();
 }
