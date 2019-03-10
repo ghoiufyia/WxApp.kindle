@@ -11,7 +11,7 @@ import (
 	"github.com/ghoiufyia/WxApp.kindle/web/dogo"
 )
 
-func main()  {
+func main() {
 	// port := "6767"
 	// log.Println("Starting HTTP service at " + port)
 	// fmt.Printf("Starting %v\n", appName)

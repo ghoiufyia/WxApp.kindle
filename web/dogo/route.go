@@ -44,11 +44,11 @@ func (rm *RouteMap)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(r.URL.Path)
 
 	vc := reflect.New(rm.Routes[0].Controller)
-	method := vc.MethodByName("Index")
+	init := vc.MethodByName("Init")
 	in := make([]reflect.Value, 1)
-	ctx := context.Context{ResponseWriter: w, Request: r, Params: params}
-	in[0] = reflect.ValueOf(ct)
-	method.Call(in)
+	ctx := context.Background()
+	in[0] = reflect.ValueOf(ctx)
+	init.Call(in)
 
 }
 
