@@ -1,10 +1,11 @@
-package controller
+package controllers
 
 import (
 	// "net/http"
 	// "encoding/json"
 	"github.com/ghoiufyia/WxApp.kindle/web/dogo"
 	"fmt"
+	// "io"
 )
 
 type IndexController struct {
@@ -15,10 +16,9 @@ type IndexController struct {
 
 func (i *IndexController)Index ()  {
 	fmt.Printf("adsd===============================")
-	fmt.Println(i.Ctx)
+	// fmt.Println(i.Ctx)
 	fmt.Printf("%v",i.Ctx.Request)
-	fmt.Printf("%v",i.Ctx.ResponseWriter)
-	i.Ctx.ResponseWriter
+	// io.WriteString(i.Ctx.ResponseWriter, "Hello from a HandleFunc #2!\n")
 }
 
 

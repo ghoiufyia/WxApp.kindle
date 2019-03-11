@@ -41,8 +41,6 @@ func (rm *RouteMap)RegisterRouteGroup(prefix string,c ControllerInterface) {
 }
 
 func (rm *RouteMap)ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(r.URL.Path)
-
 	vc := reflect.New(rm.Routes[0].Controller)
 	init := vc.MethodByName("Init")
 	in := make([]reflect.Value, 1)
@@ -55,6 +53,9 @@ func (rm *RouteMap)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	in = make([]reflect.Value, 0)
 	index := vc.MethodByName("Index")
 	index.Call(in)
+
+	render := vc.MethodByName("Render")
+	render.Call(in)
 
 }
 

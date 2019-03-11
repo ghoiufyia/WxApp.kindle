@@ -2,12 +2,12 @@ package routes
 
 import (
 	"github.com/ghoiufyia/WxApp.kindle/web/dogo"
-	"github.com/ghoiufyia/WxApp.kindle/web/controller"
+	"github.com/ghoiufyia/WxApp.kindle/web/controllers"
 
 )
 
 func init() {
-	dogo.Router("/api/",&controller.IndexController{})
+	dogo.Router("/api/",&controllers.IndexController{})
 }
 
 // var Api = Routes{
