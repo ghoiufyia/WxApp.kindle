@@ -15,6 +15,10 @@ type IndexController struct {
 
 func (i *IndexController)Index ()  {
 	fmt.Printf("adsd===============================")
+	fmt.Println(i.Ctx)
+	fmt.Printf("%v",i.Ctx.Request)
+	fmt.Printf("%v",i.Ctx.ResponseWriter)
+	i.Ctx.ResponseWriter
 }
 
 

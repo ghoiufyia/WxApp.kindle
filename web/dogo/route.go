@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"net/http"
 	"fmt"
-	"context"
+	// "context"
 )
 
 type route struct {
@@ -46,9 +46,15 @@ func (rm *RouteMap)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	vc := reflect.New(rm.Routes[0].Controller)
 	init := vc.MethodByName("Init")
 	in := make([]reflect.Value, 1)
-	ctx := context.Background()
+	ctx := &Context{
+		ResponseWriter:w,
+		Request:r,
+	}
 	in[0] = reflect.ValueOf(ctx)
 	init.Call(in)
+	in = make([]reflect.Value, 0)
+	index := vc.MethodByName("Index")
+	index.Call(in)
 
 }
 

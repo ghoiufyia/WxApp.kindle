@@ -1,24 +1,29 @@
 package dogo
 
 import (
-	"context"
+	// "context"
+	"fmt"
+	// "net/http"
+	
 )
 
 type Controller struct {
-	Ctx  *context.Context
+	Ctx  *Context
 }
 
 type ControllerInterface interface {
-	Init(ctx *context.Context)
+	Init(ctx *Context)
 	Index()
 }
 
-func (c *Controller)Init(ctx *context.Context) {
+func (c *Controller)Init(ctx *Context) {
 	c.Ctx = ctx
+	
 }
 
 func (c *Controller)Index() {
-
+	// ctx.Input.Data()
+	fmt.Printf("%v",c.Ctx)
 }
 
 
