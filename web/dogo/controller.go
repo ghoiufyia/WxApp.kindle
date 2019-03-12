@@ -16,6 +16,7 @@ type ControllerInterface interface {
 	Init(ctx *Context)
 	Index()
 	Render()
+	Test()
 }
 
 func (c *Controller)Init(ctx *Context) {
