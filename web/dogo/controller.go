@@ -15,6 +15,7 @@ type Controller struct {
 type ControllerInterface interface {
 	Init(ctx *Context)
 	Index()
+	Render(0)
 }
 
 func (c *Controller)Init(ctx *Context) {
