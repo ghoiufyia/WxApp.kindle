@@ -3,13 +3,15 @@ package main
 import (
 	"google.golang.org/grpc"
 	"net"
-	"WxApp.kindle/config"
-	"WxApp.kindle/database"
+	"github.com/ghoiufyia/WxApp.kindle/email-service/config"
+	"github.com/ghoiufyia/WxApp.kindle/email-service/database"
 	"log"
-	"WxApp.kindle/email-service/services"
-	email_pb "WxApp.kindle/email-service/proto/email"
+	"github.com/ghoiufyia/WxApp.kindle/email-service/services"
+	email_pb "github.com/ghoiufyia/WxApp.kindle/email-service/proto/email"
 	"strconv"
 )
+
+
 
 func main()  {
 	configFile := ""
