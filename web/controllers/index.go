@@ -20,6 +20,7 @@ func (i *IndexController)Index ()  {
 	fmt.Printf("%v",i.Ctx.Request)
 	// io.WriteString(i.Ctx.ResponseWriter, "Hello from a HandleFunc #2!\n")
 	
+	fmt.Printf("adsd===============================")
 
 }
 
