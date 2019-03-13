@@ -16,10 +16,13 @@ type ControllerInterface interface {
 	Init(ctx *Context)
 	Index()
 	Render()
+<<<<<<< HEAD
 	RenderJson()
 	RenderTemplate()
 	Finash()
 
+=======
+>>>>>>> ll
 }
 
 func (c *Controller)Init(ctx *Context) {
@@ -34,10 +37,10 @@ func (c *Controller)Index() {
 
 
 func (c *Controller)Render() {
-	var ViewsPath string = "./"
+	var ViewsPath string = "./views"
 	var filenames []string;
-	filenames = append(filenames,path.Join(ViewsPath,"views/layouts/header.tmpl"))
-	filenames = append(filenames,path.Join(ViewsPath,"views/layouts/footer.tmpl"))
+	filenames = append(filenames,path.Join(ViewsPath,"/layouts/header.tmpl"))
+	filenames = append(filenames,path.Join(ViewsPath,"/layouts/footer.tmpl"))
 	t,err := template.ParseFiles(filenames...)
 	if err != nil {
 		fmt.Printf("%v",err)
