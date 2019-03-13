@@ -16,7 +16,10 @@ type ControllerInterface interface {
 	Init(ctx *Context)
 	Index()
 	Render()
-	Test()
+	RenderJson()
+	RenderTemplate()
+	Finash()
+
 }
 
 func (c *Controller)Init(ctx *Context) {
@@ -43,3 +46,28 @@ func (c *Controller)Render() {
 	err = t.ExecuteTemplate(c.Ctx.ResponseWriter,"footer",nil)
 }
 
+func (c *Controller)renderJson() {
+	var ViewsPath string = "./"
+	var filenames []string;
+	filenames = append(filenames,path.Join(ViewsPath,"views/layouts/header.tmpl"))
+	filenames = append(filenames,path.Join(ViewsPath,"views/layouts/footer.tmpl"))
+	t,err := template.ParseFiles(filenames...)
+	if err != nil {
+		fmt.Printf("%v",err)
+	}
+	err = t.ExecuteTemplate(c.Ctx.ResponseWriter,"header",nil)
+	err = t.ExecuteTemplate(c.Ctx.ResponseWriter,"footer",nil)
+}
+
+func (c *Controller)renderTemplate() {
+	var ViewsPath string = "./"
+	var filenames []string;
+	filenames = append(filenames,path.Join(ViewsPath,"views/layouts/header.tmpl"))
+	filenames = append(filenames,path.Join(ViewsPath,"views/layouts/footer.tmpl"))
+	t,err := template.ParseFiles(filenames...)
+	if err != nil {
+		fmt.Printf("%v",err)
+	}
+	err = t.ExecuteTemplate(c.Ctx.ResponseWriter,"header",nil)
+	err = t.ExecuteTemplate(c.Ctx.ResponseWriter,"footer",nil)
+}

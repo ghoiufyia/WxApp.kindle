@@ -5,7 +5,7 @@ import (
 	// "github.com/gorilla/mux"
 	"reflect"
 	"net/http"
-	"fmt"
+	// "fmt"
 	// "context"
 )
 
@@ -54,8 +54,8 @@ func (rm *RouteMap)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	index := vc.MethodByName("Index")
 	index.Call(in)
 
-	render := vc.MethodByName("Render")
-	render.Call(in)
+	// render := vc.MethodByName("Render")
+	// render.Call(in)
 
 }
 

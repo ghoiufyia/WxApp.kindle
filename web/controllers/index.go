@@ -19,6 +19,8 @@ func (i *IndexController)Index ()  {
 	// fmt.Println(i.Ctx)
 	fmt.Printf("%v",i.Ctx.Request)
 	// io.WriteString(i.Ctx.ResponseWriter, "Hello from a HandleFunc #2!\n")
+	
+
 }
 
 
