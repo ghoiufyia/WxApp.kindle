@@ -21,6 +21,7 @@ func (i *IndexController)Index ()  {
 	// io.WriteString(i.Ctx.ResponseWriter, "Hello from a HandleFunc #2!\n")
 	
 	fmt.Printf("adsd===============================")
+	fmt.Printf("adsd===============================")
 
 }
 
