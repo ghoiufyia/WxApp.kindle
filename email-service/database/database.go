@@ -2,7 +2,7 @@ package database
 
 import (
 	"github.com/jinzhu/gorm"
-	"WxApp.kindle/config"
+	"github.com/ghoiufyia/WxApp.kindle/email-service/config"
 	"fmt"
 	// Driver
 	_ "github.com/jinzhu/gorm/dialects/mysql"

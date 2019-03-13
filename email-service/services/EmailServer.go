@@ -1,15 +1,16 @@
 package services
 
 import (
-	email_pb "github.com/ghoiufyiaWxApp.kindle/email-service/proto/email"
+	email_pb "github.com/ghoiufyia/WxApp.kindle/email-service/proto/email"
 	"context"
-	"github.com/ghoiufyiaWxApp.kindle/email-service/models"
+	"github.com/ghoiufyia/WxApp.kindle/email-service/models"
 	"github.com/jinzhu/gorm"
 	"time"
 	"github.com/RichardKnop/uuid"
 	"errors"
 	"fmt"
 )
+
 
 //邮件服务数据结构，实现EmailServiceServer
 type EmailServer struct {
