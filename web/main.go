@@ -29,5 +29,14 @@ func main() {
     //     log.Println("Error: " + err.Error())
     // }
 	
-	dogo.DoApp.Run();
+	// dogo.Log.Info("%s,type is %s","file","json")
+	
+	//初始化配置文件
+	cfg := dogo.NewConfig("")
+	//new DB
+	
+	//newApp
+	doApp := dogo.NewApp(cfg)
+	//运行
+	doApp.Run();
 }

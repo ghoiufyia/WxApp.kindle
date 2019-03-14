@@ -1,14 +1,13 @@
-package database
+package dogo
 
 import (
 	"github.com/jinzhu/gorm"
-	"WxApp.kindle/config"
 	"fmt"
 	// Driver
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-func NewDatabase(cfg *config.Config) (*gorm.DB,error) {
+func NewDatabase(cfg *Config) (*gorm.DB,error) {
 	if cfg.Database.Type == "mysql" {
 		args := fmt.Sprintf(
 			"%s:%s@(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",

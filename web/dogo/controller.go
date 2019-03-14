@@ -16,8 +16,8 @@ type ControllerInterface interface {
 	Init(ctx *Context)
 	Index()
 	Render()
-	RenderJson()
-	RenderTemplate()
+	renderJson()
+	renderTemplate()
 	Finash()
 
 }
@@ -31,7 +31,7 @@ func (c *Controller)Index() {
 	// ctx.Input.Data()
 	// fmt.Printf("%v",c.Ctx)
 }
-
+func (c *Controller)Finash() {}
 
 func (c *Controller)Render() {
 	var ViewsPath string = "./"

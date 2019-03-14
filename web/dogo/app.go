@@ -6,20 +6,22 @@ import (
 	"fmt"
 )
 
-var (
-	DoApp *App
-)
-
+// 全局App
+// var (
+// 	DoApp *App
+// )
+// 初始化
 func init() {
-	DoApp = NewApp()
+	// DoApp = NewApp()
 }
-
+// 定义结构
 type App struct {
 	Handler		*RouteMap
 	Server 		*http.Server
 }
-
-func NewApp() *App{
+// 生成App
+func NewApp(cfg *Config) *App{
+	//加载路由
 	rm := NewRouteMap()
 	return &App{
 		Handler:rm,
@@ -43,15 +45,3 @@ func (a *App)Run(){
 func Router(prefix string,c ControllerInterface) {
 	DoApp.Handler.RegisterRouteGroup(prefix,c)
 }
-
-
-
-
-
-// app.Server.Handler = app.Handlers
-// 	for i := len(mws) - 1; i >= 0; i-- {
-// 		if mws[i] == nil {
-// 			continue
-// 		}
-// 		app.Server.Handler = mws[i](app.Server.Handler)
-// 	}
