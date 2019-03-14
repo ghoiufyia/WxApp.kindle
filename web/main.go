@@ -34,9 +34,12 @@ func main() {
 	//初始化配置文件
 	cfg := dogo.NewConfig("")
 	//new DB
-	
+	db,err := database.NewDatabase(cfg)
+	if err != nil {
+		dogo.Log.Info("init db failed")
+	}
 	//newApp
-	doApp := dogo.NewApp(cfg)
+	doApp := dogo.NewApp(cfg,db)
 	//运行
 	doApp.Run();
 }
