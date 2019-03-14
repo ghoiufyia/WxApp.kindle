@@ -6,6 +6,12 @@ import (
 	"github.com/ghoiufyia/WxApp.kindle/web/dogo"
 	"fmt"
 	// "io"
+	"net/http"
+	"encoding/json"
+	email_pb "github.com/ghoiufyia/WxApp.kindle/email-service/proto/email"
+	"google.golang.org/grpc"
+	"log"
+	"context"
 )
 
 type IndexController struct {
