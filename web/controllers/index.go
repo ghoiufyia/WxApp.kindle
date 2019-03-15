@@ -30,7 +30,10 @@ func (i *IndexController)Index ()  {
 	// w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	// w.WriteHeader(200)
 
-	fmt.Printf("adsd===============================")
+	fmt.Printf("adsd========ffffff=======================")
+
+	i.Render()
+	return
 
 	// w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	// w.WriteHeader(200)
