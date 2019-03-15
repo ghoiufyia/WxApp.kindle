@@ -7,7 +7,7 @@ import (
 	// "github.com/gorilla/mux"
 	// "github.com/urfave/negroni"
 	// "github.com/ghoiufyia/WxApp.kindle/web/modules"
-	_ "github.com/ghoiufyia/WxApp.kindle/web/routes"
+	"github.com/ghoiufyia/WxApp.kindle/web/routes"
 	"github.com/ghoiufyia/WxApp.kindle/web/dogo"
 )
 
@@ -31,15 +31,30 @@ func main() {
 	
 	// dogo.Log.Info("%s,type is %s","file","json")
 	
+
+	dogo.Log.Info("main")
+
+
 	//初始化配置文件
 	cfg := dogo.NewConfig("")
 	//new DB
-	db,err := database.NewDatabase(cfg)
+	db,err := dogo.NewDatabase(cfg.Database)
 	if err != nil {
 		dogo.Log.Info("init db failed")
 	}
+	server,err := dogo.NewServer(cfg.Server)
+	if err != nil {
+		dogo.Log.Info("init server failed")
+	}
 	//newApp
-	doApp := dogo.NewApp(cfg,db)
+	doApp := dogo.NewApp(cfg)
+	//注册Db
+	doApp.RegisterDb(db)
+	// 注册
+	doApp.RegisterServer(server)
+
+	handler := routes.Init()
+	doApp.RegisterHandler(handler)
 	//运行
 	doApp.Run();
 }

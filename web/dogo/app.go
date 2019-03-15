@@ -1,7 +1,7 @@
 package dogo
 
 import (
-	// "github.com/gorilla/mux"
+	"github.com/jinzhu/gorm"
 	"net/http"
 	"fmt"
 )
@@ -18,30 +18,34 @@ func init() {
 type App struct {
 	Handler		*RouteMap
 	Server 		*http.Server
+	Db			*gorm.DB
 }
 // 生成App
 func NewApp(cfg *Config) *App{
-	//加载路由
-	rm := NewRouteMap()
 	return &App{
-		Handler:rm,
-		Server:&http.Server{
-			Addr:":8080",
-		},
+		Handler:nil,
+		Server:nil,
+		Db:nil,
 	}
+}
+//注册Db
+func (a *App)RegisterDb(db *gorm.DB) {
+	a.Db = db
+}
+//注册Server
+func (a *App)RegisterServer(server *http.Server) {
+	a.Server = server
+}
+//注册Handler
+func (a *App)RegisterHandler(handler *RouteMap) {
+	a.Handler = handler
 }
 
 func (a *App)Run(){
-	fmt.Printf("%v",a.Handler)
-	// a.Server.Handler = a.Handler
+	Log.Info("%v",a.Handler)
 	a.Server.Handler = a.Handler
 	err := a.Server.ListenAndServe()
 	if err != nil {
 		fmt.Println(err)
 	}
-
-}
-
-func Router(prefix string,c ControllerInterface) {
-	DoApp.Handler.RegisterRouteGroup(prefix,c)
 }

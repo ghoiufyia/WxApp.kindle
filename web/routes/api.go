@@ -6,10 +6,8 @@ import (
 
 )
 
-func init() {
-	dogo.Router("/api/",&controllers.IndexController{})
-}
-
-func Init() {
-	
+func Init() (*dogo.RouteMap) {
+	rm := dogo.NewRouteMap()
+	rm.Router("/index/",&controllers.IndexController{})
+	return rm
 }

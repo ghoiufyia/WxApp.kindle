@@ -8,7 +8,7 @@ import (
 	// "fmt"
 	// "context"
 )
-
+//单个路由
 type route struct {
 	Name		string
 	Method		string
@@ -16,22 +16,22 @@ type route struct {
 	Controller	reflect.Type
 	Action		string
 }
-
+//一个路由组
 type RouteGroup struct {
 	Prefix		string
 	Controller 	reflect.Type
 }
-
+//多个路由组
 type RouteMap struct {
 	Routes []*RouteGroup
 }
-
+//新生成路由组
 func NewRouteMap() *RouteMap {
 	return &RouteMap{
 		Routes:make([]*RouteGroup, 0),
 	}
 }
-
+//添加路由
 func (rm *RouteMap)RegisterRouteGroup(prefix string,c ControllerInterface) {
 	controller := reflect.Indirect(reflect.ValueOf(c)).Type()
 	rg := &RouteGroup{}
@@ -39,7 +39,12 @@ func (rm *RouteMap)RegisterRouteGroup(prefix string,c ControllerInterface) {
 	rg.Controller = controller
 	rm.Routes = append(rm.Routes,rg)
 }
+func (rm *RouteMap)Router(prefix string,c ControllerInterface) {
+	rm.RegisterRouteGroup(prefix,c)
+}
 
+
+//实现http的server handler
 func (rm *RouteMap)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	vc := reflect.New(rm.Routes[0].Controller)
 	init := vc.MethodByName("Init")
