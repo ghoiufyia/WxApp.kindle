@@ -23,14 +23,15 @@ type IndexController struct {
 func (i *IndexController)Index ()  {
 	fmt.Printf("adsd===============================")
 	// fmt.Println(i.Ctx)
-	fmt.Printf("%v",i.Ctx.Request)
+	// fmt.Printf("%+v",i.Ctx.Request)
 	// io.WriteString(i.Ctx.ResponseWriter, "Hello from a HandleFunc #2!\n")
-	
-	fmt.Printf("adsd===============================")
 	fmt.Printf("adsd===============================")
 
 	// w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	// w.WriteHeader(200)
+	// json.NewEncoder(w).Encode(map[string]interface{}{
+	// 	"msg": "ok",
+	// })
 
 	// // 连接远端服务
 	// conn,err := grpc.Dial(ADDRESS,grpc.WithInsecure())
@@ -51,9 +52,7 @@ func (i *IndexController)Index ()  {
 
 	// log.Printf("created: %t", resp.Msg)
 	// conn.Close()
-	// json.NewEncoder(w).Encode(map[string]interface{}{
-	// 	"msg": "ok",
-	// })
+	
 
 }
 

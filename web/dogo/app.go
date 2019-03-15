@@ -7,12 +7,15 @@ import (
 )
 
 // 全局App
-// var (
-// 	DoApp *App
-// )
+var (
+	// DoApp *App
+	StaticDir map[string]string
+
+)
 // 初始化
 func init() {
 	// DoApp = NewApp()
+	StaticDir = make(map[string]string)
 }
 // 定义结构
 type App struct {
@@ -39,6 +42,10 @@ func (a *App)RegisterServer(server *http.Server) {
 //注册Handler
 func (a *App)RegisterHandler(handler *RouteMap) {
 	a.Handler = handler
+}
+
+func (a *App)SetStaticDir(url string,path string) {
+	a.StaticDir[url] = path
 }
 
 func (a *App)Run(){

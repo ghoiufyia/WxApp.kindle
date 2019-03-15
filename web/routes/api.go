@@ -8,6 +8,6 @@ import (
 
 func Init() (*dogo.RouteMap) {
 	rm := dogo.NewRouteMap()
-	rm.Router("/index/",&controllers.IndexController{})
+	rm.Router("首页","GET","/index/",&controllers.IndexController{},"Index")
 	return rm
 }
