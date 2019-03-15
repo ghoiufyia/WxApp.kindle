@@ -54,6 +54,7 @@ func (rm *RouteMap)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	Log.Info("%+v",myRoute)
 
 	requestPath := r.URL.Path
+	Log.Info("%s\n",requestPath)
 	for url,path := range StaticDir {
 		if strings.HasPrefix(requestPath,url) {
 			file := path + requestPath[len(url):]

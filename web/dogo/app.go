@@ -16,6 +16,7 @@ var (
 func init() {
 	// DoApp = NewApp()
 	StaticDir = make(map[string]string)
+	StaticDir["/favicon.ico"] = "/StaticDir/favicon.ico"
 }
 // 定义结构
 type App struct {
@@ -44,8 +45,8 @@ func (a *App)RegisterHandler(handler *RouteMap) {
 	a.Handler = handler
 }
 
-func (a *App)SetStaticDir(url string,path string) {
-	a.StaticDir[url] = path
+func SetStaticDir(url string,path string) {
+	StaticDir[url] = path
 }
 
 func (a *App)Run(){
