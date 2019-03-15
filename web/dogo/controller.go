@@ -1,11 +1,10 @@
 package dogo
 
 import (
-	// "context"
 	"fmt"
-	// "net/http"
 	"html/template"
 	"path"
+	
 )
 
 type Controller struct {
@@ -16,25 +15,18 @@ type ControllerInterface interface {
 	Init(ctx *Context)
 	Index()
 	Render()
-<<<<<<< HEAD
-	RenderJson()
-	RenderTemplate()
-	Finash()
-
-=======
->>>>>>> ll
+	renderJson()
+	renderTemplate()
+	Finish()
 }
 
 func (c *Controller)Init(ctx *Context) {
 	c.Ctx = ctx
-	
 }
 
 func (c *Controller)Index() {
-	// ctx.Input.Data()
-	// fmt.Printf("%v",c.Ctx)
 }
-
+func (c *Controller)Finish() {}
 
 func (c *Controller)Render() {
 	var ViewsPath string = "./views"
@@ -73,4 +65,15 @@ func (c *Controller)renderTemplate() {
 	}
 	err = t.ExecuteTemplate(c.Ctx.ResponseWriter,"header",nil)
 	err = t.ExecuteTemplate(c.Ctx.ResponseWriter,"footer",nil)
+}
+
+func (c *Controller)Error() {
+	// c.Ctx.ResponseWriter.Header().Set("Content-Type", "application/json; charset=utf-8")
+	// c.Ctx.ResponseWriter.WriteHeader(200)
+	// json.NewEncoder(c.Ctx.ResponseWriter).Encode(map[string]interface{}{
+	// 	"msg": "ok",
+	// })
+	fmt.Printf("未找到该路由")
+
+
 }

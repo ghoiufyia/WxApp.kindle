@@ -1,14 +1,13 @@
 package dogo
 
 import (
-	// "net/http"
-	// "github.com/gorilla/mux"
 	"reflect"
 	"net/http"
-	// "fmt"
-	// "context"
+	"regexp"
+	"strings"
+	"encoding/json"
 )
-
+//单个路由
 type route struct {
 	Name		string
 	Method		string
@@ -16,32 +15,75 @@ type route struct {
 	Controller	reflect.Type
 	Action		string
 }
-
+//一个路由组
 type RouteGroup struct {
 	Prefix		string
 	Controller 	reflect.Type
 }
-
+//多个路由组
 type RouteMap struct {
-	Routes []*RouteGroup
+	Routes []route
 }
-
+//新生成路由组
 func NewRouteMap() *RouteMap {
 	return &RouteMap{
-		Routes:make([]*RouteGroup, 0),
+		Routes:make([]route, 0),
 	}
 }
-
-func (rm *RouteMap)RegisterRouteGroup(prefix string,c ControllerInterface) {
+//添加路由
+func (rm *RouteMap)RegisterRouteGroup(name string,method string,pattern string,c ControllerInterface,action string) {
 	controller := reflect.Indirect(reflect.ValueOf(c)).Type()
-	rg := &RouteGroup{}
-	rg.Prefix = prefix
-	rg.Controller = controller
-	rm.Routes = append(rm.Routes,rg)
+	r := route{}
+	r.Name = name
+	r.Method = method
+	r.Pattern = pattern
+	r.Controller = controller
+	r.Action = action
+
+	// rm.Routes = append(rm.Routes,rg)
+	rm.Routes = append(rm.Routes,r)
+}
+func (rm *RouteMap)Router(name string,method string,pattern string,c ControllerInterface,action string) {
+	rm.RegisterRouteGroup(name,method,pattern,c,action)
 }
 
+//实现http的server handler
 func (rm *RouteMap)ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	vc := reflect.New(rm.Routes[0].Controller)
+	Log.Info("%v",r.URL)
+	var myRoute route
+	Log.Info("%+v",myRoute)
+
+	requestPath := r.URL.Path
+	Log.Info("%s\n",requestPath)
+	for url,path := range StaticDir {
+		if strings.HasPrefix(requestPath,url) {
+			file := path + requestPath[len(url):]
+			http.ServeFile(w,r,file)
+			return
+		}
+	}
+
+	for _,v := range rm.Routes {
+		Log.Info("%+v",v)
+		matched,err := regexp.MatchString(requestPath, v.Pattern)
+		if err == nil && matched {
+			myRoute = v
+			break
+		}
+	}
+	if nil == myRoute.Controller {
+		Log.Info("未找到请求")
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		w.WriteHeader(200)
+		json.NewEncoder(w).Encode(map[string]interface{}{
+			"msg": "没有",
+		})
+		// fmt.Printf("未找到该路由")
+		return
+	}
+	// 反射出controller新对象
+	vc := reflect.New(myRoute.Controller)
+	// 执行Init方法
 	init := vc.MethodByName("Init")
 	in := make([]reflect.Value, 1)
 	ctx := &Context{
@@ -50,32 +92,14 @@ func (rm *RouteMap)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	in[0] = reflect.ValueOf(ctx)
 	init.Call(in)
+
+	// 执行方法
 	in = make([]reflect.Value, 0)
-	index := vc.MethodByName("Index")
+	index := vc.MethodByName(myRoute.Action)
 	index.Call(in)
 
-	// render := vc.MethodByName("Render")
-	// render.Call(in)
-
+	// // 扫尾方法
+	in = make([]reflect.Value, 0)
+	finish := vc.MethodByName("Finish")
+	finish.Call(in)
 }
-
-
-// func (r *Routes)GetRoutes() []Route {
-// 	return r.MyRoutes
-// }
-
-// func (r *Routes)RegisterRoutes(router *mux.Router) {
-// 	subRouter := router.PathPrefix(r.Prefix).Subrouter()
-// 	addRoute(r.GetRoutes(),router)
-// }
-
-// func addRoute(routes []Route,router *mux.Router) {
-// 	if len(routes) > 0 {
-// 		for _,route := range routes {
-// 			router.Methods(route.Method).
-// 				Path(route.Pattern).
-// 				Name(route.Name).
-// 				Handler(route.HandlerFunc)
-// 		}
-// 	}
-// }

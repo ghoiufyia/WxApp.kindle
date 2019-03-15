@@ -6,22 +6,8 @@ import (
 
 )
 
-func init() {
-	dogo.Router("/api/",&controllers.IndexController{})
+func Init() (*dogo.RouteMap) {
+	rm := dogo.NewRouteMap()
+	rm.Router("首页","GET","/index/",&controllers.IndexController{},"Index")
+	return rm
 }
-
-// var Api = Routes{
-// 	Prefix:		"/api/v1",
-// 	MyRoutes:	[]Route{
-// 		Route{
-// 			Name:			"index",
-// 			Method:			"GET",
-// 			Pattern:		"/index",
-// 			HandlerFunc:	handlers.Index,
-// 		},
-// 	},
-// }
-
-
-// AddRouter("index","GET","/index",&handlers.IndexHandler{})
-

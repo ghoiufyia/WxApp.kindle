@@ -1,57 +1,59 @@
 package dogo
 
 import (
-	// "github.com/gorilla/mux"
+	"github.com/jinzhu/gorm"
 	"net/http"
 	"fmt"
 )
 
+// 全局App
 var (
-	DoApp *App
+	// DoApp *App
+	StaticDir map[string]string
+
 )
-
+// 初始化
 func init() {
-	DoApp = NewApp()
+	// DoApp = NewApp()
+	StaticDir = make(map[string]string)
+	StaticDir["/favicon.ico"] = "/StaticDir/favicon.ico"
 }
-
+// 定义结构
 type App struct {
 	Handler		*RouteMap
 	Server 		*http.Server
+	Db			*gorm.DB
+}
+// 生成App
+func NewApp(cfg *Config) *App{
+	return &App{
+		Handler:nil,
+		Server:nil,
+		Db:nil,
+	}
+}
+//注册Db
+func (a *App)RegisterDb(db *gorm.DB) {
+	a.Db = db
+}
+//注册Server
+func (a *App)RegisterServer(server *http.Server) {
+	a.Server = server
+}
+//注册Handler
+func (a *App)RegisterHandler(handler *RouteMap) {
+	a.Handler = handler
 }
 
-func NewApp() *App{
-	rm := NewRouteMap()
-	return &App{
-		Handler:rm,
-		Server:&http.Server{
-			Addr:":8080",
-		},
-	}
+func SetStaticDir(url string,path string) {
+	StaticDir[url] = path
 }
 
 func (a *App)Run(){
-	fmt.Printf("%v",a.Handler)
-	// a.Server.Handler = a.Handler
+	Log.Info("%v",a.Handler)
 	a.Server.Handler = a.Handler
 	err := a.Server.ListenAndServe()
 	if err != nil {
 		fmt.Println(err)
 	}
-
 }
-
-func Router(prefix string,c ControllerInterface) {
-	DoApp.Handler.RegisterRouteGroup(prefix,c)
-}
-
-
-
-
-
-// app.Server.Handler = app.Handlers
-// 	for i := len(mws) - 1; i >= 0; i-- {
-// 		if mws[i] == nil {
-// 			continue
-// 		}
-// 		app.Server.Handler = mws[i](app.Server.Handler)
-// 	}
