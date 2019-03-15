@@ -16,7 +16,7 @@ import (
 
 type IndexController struct {
 	dogo.Controller
-	DB *gorm.DB
+	// DB *gorm.DB
 	Name	string
 	age		int32
 }
@@ -29,7 +29,7 @@ func (i *IndexController)Index ()  {
 
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.WriteHeader(200)
-	
+
 	fmt.Printf("adsd===============================")
 
 	// w.Header().Set("Content-Type", "application/json; charset=utf-8")
