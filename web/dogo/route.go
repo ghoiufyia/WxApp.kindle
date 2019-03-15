@@ -98,8 +98,9 @@ func (rm *RouteMap)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	index := vc.MethodByName(myRoute.Action)
 	index.Call(in)
 
-	// // 扫尾方法
+	// 扫尾方法
 	in = make([]reflect.Value, 0)
 	finish := vc.MethodByName("Finish")
 	finish.Call(in)
+	return
 }
