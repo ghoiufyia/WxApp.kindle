@@ -27,8 +27,8 @@ func (i *IndexController)Index ()  {
 	// fmt.Printf("%+v",i.Ctx.Request)
 	// io.WriteString(i.Ctx.ResponseWriter, "Hello from a HandleFunc #2!\n")
 
-	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-	w.WriteHeader(200)
+	// w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	// w.WriteHeader(200)
 
 	fmt.Printf("adsd===============================")
 
