@@ -15,19 +15,10 @@ type ControllerInterface interface {
 	Init(ctx *Context)
 	Index()
 	Render()
-<<<<<<< HEAD
 	renderJson()
 	renderTemplate()
-	Finish()
-=======
-<<<<<<< HEAD
-	RenderJson()
-	RenderTemplate()
-	Finash()
->>>>>>> ll
 
-=======
->>>>>>> ll
+	Finash()
 }
 
 func (c *Controller)Init(ctx *Context) {
