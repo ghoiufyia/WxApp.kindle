@@ -18,7 +18,7 @@ type ControllerInterface interface {
 	renderJson()
 	renderTemplate()
 
-	Finash()
+	Finish()
 }
 
 func (c *Controller)Init(ctx *Context) {
