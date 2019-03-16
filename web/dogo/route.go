@@ -51,10 +51,10 @@ func (rm *RouteMap)Router(name string,method string,pattern string,c ControllerI
 func (rm *RouteMap)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	Log.Info("%v",r.URL)
 	var myRoute route
-	Log.Info("%+v",myRoute)
+	// Log.Info("%+v",myRoute)
 
 	requestPath := r.URL.Path
-	Log.Info("%s\n",requestPath)
+	// Log.Info("%s\n",requestPath)
 	// 匹配静态文件，后可由nginx定向
 	for url,path := range StaticDir {
 		if strings.HasPrefix(requestPath,url) {
@@ -65,7 +65,7 @@ func (rm *RouteMap)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	// 匹配路由
 	for _,v := range rm.Routes {
-		Log.Info("%+v",v)
+		// Log.Info("%+v",v)
 		matched,err := regexp.MatchString(requestPath, v.Pattern)
 		if err == nil && matched {
 			myRoute = v

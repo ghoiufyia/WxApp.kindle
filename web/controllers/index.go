@@ -1,31 +1,49 @@
 package controllers
 
 import (
-	// "net/http"
-	// "encoding/json"
 	"github.com/ghoiufyia/WxApp.kindle/web/dogo"
 	"fmt"
-	// "io"
-	// "net/http"
-	// "encoding/json"
-	// email_pb "github.com/ghoiufyia/WxApp.kindle/email-service/proto/email"
-	// "google.golang.org/grpc"
-	// "log"
-	// "context"
+	// "github.com/ghoiufyia/WxApp.kindle/web/models"
+	"database/sql"
+	_ "github.com/go-sql-driver/mysql"
 )
 
 type IndexController struct {
 	dogo.Controller
-	// DB *gorm.DB
 	Name	string
 	age		int32
 }
 
 func (i *IndexController)Json ()  {
-	fmt.Printf("json========json=======================")
 	data := map[string]interface{}{
 			"msg": "ok",
 		}
+		args := fmt.Sprintf(
+			"%s:%s@(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",
+			cfg.User,
+			cfg.Password,
+			cfg.Host,
+			cfg.Port,
+			cfg.DatabaseName,
+		)
+	db, err := sql.Open("mysql", args)
+	rows, err := db.Query("SELECT * FROM userinfo")
+	for rows.Next() {
+		var uid int
+		var username string
+		var department string
+		var created string
+		err = rows.Scan(&uid, &username, &department, &created)
+		checkErr(err)
+		fmt.Println(uid)
+		fmt.Println(username)
+		fmt.Println(department)
+		fmt.Println(created)
+	}
+
+
+
+
 	i.Data = data
 	i.SetData("code","1")
 	i.SetData("msg","ok")

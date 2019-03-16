@@ -9,34 +9,30 @@ import (
 	// "github.com/ghoiufyia/WxApp.kindle/web/modules"
 	"github.com/ghoiufyia/WxApp.kindle/web/routes"
 	"github.com/ghoiufyia/WxApp.kindle/web/dogo"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"github.com/jinzhu/gorm"
 
-)
-
-var (
-	DoDb *gorm.DB
 )
 
 func main() {
-	//初始化配置文件
+	// 初始化配置文件
 	cfg := dogo.NewConfig("")
-	//new DB
-	DoDb,err := dogo.NewDatabase(cfg.Database)
+	// new DB
+	db,err := dogo.NewDB(cfg.Database)
 	if err != nil {
 		dogo.Log.Info("init db failed")
 	}
+
+	// 设置DB连接池
+	dogo.SetDB(db)
+	// new server
 	server,err := dogo.NewServer(cfg.Server)
 	if err != nil {
 		dogo.Log.Info("init server failed")
 	}
-	//newApp
+	// newApp
 	doApp := dogo.NewApp(cfg)
-	// //注册Db
-	// DoDb.RegisterDb(db)
-	// 注册
+	// 注册server
 	doApp.RegisterServer(server)
-
+	// 初始化handle
 	handler := routes.Init()
 	doApp.RegisterHandler(handler)
 	//运行

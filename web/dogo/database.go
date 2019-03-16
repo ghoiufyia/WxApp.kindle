@@ -7,7 +7,11 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-func NewDatabase(cfg DatabaseConfig) (*gorm.DB,error) {
+var (
+	DoDB *gorm.DB
+)
+
+func NewDB(cfg DatabaseConfig) (*gorm.DB,error) {
 	if cfg.Type == "mysql" {
 		args := fmt.Sprintf(
 			"%s:%s@(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",
@@ -28,10 +32,18 @@ func NewDatabase(cfg DatabaseConfig) (*gorm.DB,error) {
 		db.DB().SetMaxOpenConns(cfg.MaxOpenConns)
 
 		// Database logging
-		db.LogMode(false)
+		db.LogMode(true)
 
 		return db, nil
 	}
 	return nil, fmt.Errorf("Database type %s not supported", cfg.Type)
 }
 
+
+func SetDB(db *gorm.DB) {
+	DoDB = db
+}
+
+func GetDB() *gorm.DB {
+	return DoDB
+}

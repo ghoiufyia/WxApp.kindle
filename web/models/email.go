@@ -1,11 +1,12 @@
 package models
 
 import (
-	// "database/sql"
-	// "time"
+	"github.com/jinzhu/gorm"
+
 )
 
 type BaseModel struct {
+	gorm.Model
 	ID        string `gorm:"primary_key"`
 	CreatedAt int64
 	UpdatedAt int64

@@ -1,7 +1,6 @@
 package dogo
 
 import (
-	"github.com/jinzhu/gorm"
 	"net/http"
 	"fmt"
 )
@@ -22,19 +21,13 @@ func init() {
 type App struct {
 	Handler		*RouteMap
 	Server 		*http.Server
-	Db			*gorm.DB
 }
 // 生成App
 func NewApp(cfg *Config) *App{
 	return &App{
 		Handler:nil,
 		Server:nil,
-		// Db:nil,
 	}
-}
-//注册Db
-func (a *App)RegisterDb(db *gorm.DB) {
-	// a.Db = db
 }
 //注册Server
 func (a *App)RegisterServer(server *http.Server) {
@@ -50,7 +43,7 @@ func SetStaticDir(url string,path string) {
 }
 
 func (a *App)Run(){
-	Log.Info("%v",a.Handler)
+	// Log.Info("%v",a.Handler)
 	a.Server.Handler = a.Handler
 	err := a.Server.ListenAndServe()
 	if err != nil {
