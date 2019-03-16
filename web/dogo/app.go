@@ -16,7 +16,7 @@ var (
 func init() {
 	// DoApp = NewApp()
 	StaticDir = make(map[string]string)
-	StaticDir["/favicon.ico"] = "/StaticDir/favicon.ico"
+	StaticDir["/favicon.ico"] = "/public/favicon.ico"
 }
 // 定义结构
 type App struct {
@@ -29,12 +29,12 @@ func NewApp(cfg *Config) *App{
 	return &App{
 		Handler:nil,
 		Server:nil,
-		Db:nil,
+		// Db:nil,
 	}
 }
 //注册Db
 func (a *App)RegisterDb(db *gorm.DB) {
-	a.Db = db
+	// a.Db = db
 }
 //注册Server
 func (a *App)RegisterServer(server *http.Server) {

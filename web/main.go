@@ -9,36 +9,20 @@ import (
 	// "github.com/ghoiufyia/WxApp.kindle/web/modules"
 	"github.com/ghoiufyia/WxApp.kindle/web/routes"
 	"github.com/ghoiufyia/WxApp.kindle/web/dogo"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/jinzhu/gorm"
+
+)
+
+var (
+	DoDb *gorm.DB
 )
 
 func main() {
-	// port := "6767"
-	// log.Println("Starting HTTP service at " + port)
-	// fmt.Printf("Starting %v\n", appName)
-	
-	// service := modules.NewService("app",16)
-
-	// r := mux.NewRouter()
-	// service.RegisterRoutes(r,"/v1")
-	// http.Handle("/", r)
-	
-    // err := http.ListenAndServe(":"+port, nil) // Goroutine will block here
-
-    // if err != nil {
-    //     log.Println("An error occured starting HTTP listener at port " + port)
-    //     log.Println("Error: " + err.Error())
-    // }
-	
-	// dogo.Log.Info("%s,type is %s","file","json")
-	
-
-	dogo.Log.Info("main")
-
-
 	//初始化配置文件
 	cfg := dogo.NewConfig("")
 	//new DB
-	db,err := dogo.NewDatabase(cfg.Database)
+	DoDb,err := dogo.NewDatabase(cfg.Database)
 	if err != nil {
 		dogo.Log.Info("init db failed")
 	}
@@ -48,8 +32,8 @@ func main() {
 	}
 	//newApp
 	doApp := dogo.NewApp(cfg)
-	//注册Db
-	doApp.RegisterDb(db)
+	// //注册Db
+	// DoDb.RegisterDb(db)
 	// 注册
 	doApp.RegisterServer(server)
 

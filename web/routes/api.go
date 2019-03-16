@@ -9,5 +9,6 @@ import (
 func Init() (*dogo.RouteMap) {
 	rm := dogo.NewRouteMap()
 	rm.Router("首页","GET","/index/",&controllers.IndexController{},"Index")
+	rm.Router("首页","GET","/json/",&controllers.IndexController{},"Json")
 	return rm
 }

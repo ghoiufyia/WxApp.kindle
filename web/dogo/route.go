@@ -55,6 +55,7 @@ func (rm *RouteMap)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	requestPath := r.URL.Path
 	Log.Info("%s\n",requestPath)
+	// 匹配静态文件，后可由nginx定向
 	for url,path := range StaticDir {
 		if strings.HasPrefix(requestPath,url) {
 			file := path + requestPath[len(url):]
@@ -62,7 +63,7 @@ func (rm *RouteMap)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-
+	// 匹配路由
 	for _,v := range rm.Routes {
 		Log.Info("%+v",v)
 		matched,err := regexp.MatchString(requestPath, v.Pattern)
@@ -71,6 +72,7 @@ func (rm *RouteMap)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 	}
+	// 未匹配到路由
 	if nil == myRoute.Controller {
 		Log.Info("未找到请求")
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
