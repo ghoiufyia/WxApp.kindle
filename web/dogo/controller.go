@@ -26,6 +26,7 @@ type ControllerInterface interface {
 
 func (c *Controller)Init(ctx *Context) {
 	c.Ctx = ctx
+	c.Data = make(map[string]interface{})
 }
 
 func (c *Controller)Index() {

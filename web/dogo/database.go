@@ -1,15 +1,31 @@
 package dogo
 
 import (
-	"github.com/jinzhu/gorm"
+	// "database/sql"
+	// _ "github.com/go-sql-driver/mysql"
 	"fmt"
-	// Driver
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/jinzhu/gorm"
+	// "errors"
 )
 
 var (
 	DoDB *gorm.DB
 )
+
+
+func GetDB() *gorm.DB {
+	if nil != DoDB {
+		return DoDB
+	}
+	cfg := NewConfig("")
+	var err error
+	DoDB,err = NewDB(cfg.Database)
+	if err != nil {
+		Log.Info("DoDB error:%+v",DoDB)
+	}
+	return DoDB
+}
 
 func NewDB(cfg DatabaseConfig) (*gorm.DB,error) {
 	if cfg.Type == "mysql" {
@@ -37,13 +53,4 @@ func NewDB(cfg DatabaseConfig) (*gorm.DB,error) {
 		return db, nil
 	}
 	return nil, fmt.Errorf("Database type %s not supported", cfg.Type)
-}
-
-
-func SetDB(db *gorm.DB) {
-	DoDB = db
-}
-
-func GetDB() *gorm.DB {
-	return DoDB
 }

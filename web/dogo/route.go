@@ -72,6 +72,9 @@ func (rm *RouteMap)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 	}
+
+	Log.Info("%+v",myRoute)
+
 	// 未匹配到路由
 	if nil == myRoute.Controller {
 		Log.Info("未找到请求")

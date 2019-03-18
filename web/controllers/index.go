@@ -3,9 +3,10 @@ package controllers
 import (
 	"github.com/ghoiufyia/WxApp.kindle/web/dogo"
 	"fmt"
-	// "github.com/ghoiufyia/WxApp.kindle/web/models"
-	"database/sql"
+	"github.com/ghoiufyia/WxApp.kindle/web/models"
+	// "database/sql"
 	_ "github.com/go-sql-driver/mysql"
+	// "log"
 )
 
 type IndexController struct {
@@ -15,39 +16,14 @@ type IndexController struct {
 }
 
 func (i *IndexController)Json ()  {
-	data := map[string]interface{}{
-			"msg": "ok",
-		}
-		args := fmt.Sprintf(
-			"%s:%s@(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",
-			cfg.User,
-			cfg.Password,
-			cfg.Host,
-			cfg.Port,
-			cfg.DatabaseName,
-		)
-	db, err := sql.Open("mysql", args)
-	rows, err := db.Query("SELECT * FROM userinfo")
-	for rows.Next() {
-		var uid int
-		var username string
-		var department string
-		var created string
-		err = rows.Scan(&uid, &username, &department, &created)
-		checkErr(err)
-		fmt.Println(uid)
-		fmt.Println(username)
-		fmt.Println(department)
-		fmt.Println(created)
-	}
+	db := dogo.GetDB()
+	var user_email models.UserEmail
+	db.First(&user_email)
 
-
-
-
-	i.Data = data
 	i.SetData("code","1")
 	i.SetData("msg","ok")
-	i.SetData("data",make(map[string]string, 0))
+	// i.SetData("data",make(map[string]string, 0))
+	i.SetData("data",user_email)
 	i.RenderJson()
 }
 
