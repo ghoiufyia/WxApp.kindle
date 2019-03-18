@@ -2,6 +2,7 @@ package config
 
 import "github.com/jinzhu/configor"
 
+
 type DatabaseConfig struct {
 	Type         string `default:"mysql"`
 	Host         string `default:"localhost"`

@@ -19,8 +19,8 @@ type EmailServer struct {
 
 func (s *EmailServer)CreateEmail(ctx context.Context, req *email_pb.CreateEmailRequest) (*email_pb.CreateEmailResponse, error){
 	user_id := req.GetUserId()
-	if user_id == "" {
-		return nil,errors.New("UserId Not Found.")
+	if user_id == 0 {
+		return nil,errors.New("UserId is 0.")
 	}
 	email := req.GetEmail()
 	if email == "" {

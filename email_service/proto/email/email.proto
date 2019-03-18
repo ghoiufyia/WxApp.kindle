@@ -18,7 +18,7 @@ service EmailService {
 }
 
 message CreateEmailRequest{
-    int32 UserId = 1;
+    uint32 UserId = 1;
     string Email = 2;
     
 }

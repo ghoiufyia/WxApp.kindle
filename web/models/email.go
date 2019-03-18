@@ -12,21 +12,15 @@ type BaseModel struct {
 	DeletedAt *time.Time `sql:"index"`
 }
 
-type TimestampModel struct {
-	CreatedAt int64
-	UpdatedAt int64
-	DeletedAt int64
-}
-
 type UserEmail struct {
 	BaseModel
-	UserId		string `gorm:"not null;default ''"`	
+	UserId		uint `gorm:"not null;default ''"`	
 	Email		string `gorm:"type:varchar(100)"`
 }
 
 type Email struct {
 	BaseModel
-	UserId		string `gorm:"not null;default ''"`	
+	UserId		uint `gorm:"not null;default ''"`	
 	ToEmail		string `gorm:"type:varchar(100)"`
 	FilePath	string `gorm:"type:varchar(255)"`
 }
