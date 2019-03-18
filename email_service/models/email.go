@@ -6,10 +6,7 @@ import (
 )
 
 type BaseModel struct {
-	ID        string `gorm:"primary_key"`
-	CreatedAt int64
-	UpdatedAt int64
-	DeletedAt int64
+	gorm.odel
 }
 
 type TimestampModel struct {

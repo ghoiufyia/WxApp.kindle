@@ -27,7 +27,7 @@ func (s *Service) index (w http.ResponseWriter, r *http.Request)  {
 	// 定义客户端
 	client := email_pb.NewEmailServiceClient(conn)
 
-	var resuest = email_pb.CreateEmailRequest{UserId:"fghfyffffffffjy",Email:"ddd@11.com"}
+	var resuest = email_pb.CreateEmailRequest{UserId:2,Email:"ddd@11.com"}
 
 	// 调用 RPC
 	resp, err := client.CreateEmail(context.Background(), &resuest)

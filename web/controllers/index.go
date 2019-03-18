@@ -5,8 +5,11 @@ import (
 	"fmt"
 	"github.com/ghoiufyia/WxApp.kindle/web/models"
 	// "database/sql"
-	_ "github.com/go-sql-driver/mysql"
+	// _ "github.com/go-sql-driver/mysql"
 	// "log"
+	email_pb "github.com/ghoiufyia/WxApp.kindle/email_service/proto/email"
+	"google.golang.org/grpc"
+	"context"
 )
 
 type IndexController struct {
@@ -36,26 +39,33 @@ func (i *IndexController)Index ()  {
 	fmt.Printf("adsd========ffffff=======================")
 
 	i.Render()
+}
+const (
+	ADDRESS           = "127.0.0.1:8000"
+)
 
-	// // 连接远端服务
-	// conn,err := grpc.Dial(ADDRESS,grpc.WithInsecure())
-	// if err != nil {
-	// 	log.Fatalf("connect error %v",err)
-	// }
-	// defer conn.Close()
-	// // 定义客户端
-	// client := email_pb.NewEmailServiceClient(conn)
+func (i *IndexController)Rpc ()  {
+	// 连接远端服务
+	conn,err := grpc.Dial(ADDRESS,grpc.WithInsecure())
+	if err != nil {
+		dogo.Log.Info("connect error %v",err)
+	}
+	defer conn.Close()
+	// 定义客户端
+	client := email_pb.NewEmailServiceClient(conn)
 
-	// var resuest = email_pb.CreateEmailRequest{UserId:"fghfyffffffffjy",Email:"ddd@11.com"}
+	var resuest = email_pb.CreateEmailRequest{UserId:2,Email:"ddd@11.com"}
 
-	// // 调用 RPC
-	// resp, err := client.CreateEmail(context.Background(), &resuest)
-	// if err != nil {
-	// 	log.Printf("create email error: %v", err)
-	// }
+	// 调用 RPC
+	resp, err := client.CreateEmail(context.Background(), &resuest)
+	if err != nil {
+		dogo.Log.Info("create email error: %v", err)
+	}
 
-	// log.Printf("created: %t", resp.Msg)
-	// conn.Close()
+	dogo.Log.Info("created: %+v", resp)
+	conn.Close()
+
+	// i.Render()
+
 
 }
-
