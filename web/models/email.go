@@ -14,7 +14,7 @@ type BaseModel struct {
 
 type UserEmail struct {
 	BaseModel
-	UserId		uint `gorm:"not null;default ''"`	
+	UserId		uint32 `gorm:"not null;default ''"`	
 	Email		string `gorm:"type:varchar(100)"`
 }
 

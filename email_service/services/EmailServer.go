@@ -35,8 +35,7 @@ func (s *EmailServer)CreateEmail(ctx context.Context, req *email_pb.CreateEmailR
 		UserId:user_id,
 		Email:email,
 	}
-	fmt.Println("%+v",user_email)
-	if err := s.Db.Create(user_email).Error; err != nil {
+	if err := s.Db.Create(&user_email).Error; err != nil {
 		return nil, err
 	}
 	rep := &email_pb.CreateEmailResponse{
