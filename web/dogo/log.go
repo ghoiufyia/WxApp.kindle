@@ -6,24 +6,15 @@ import (
 )
 
 var (
-	Log *DoLog
+	var DoLog *log.Logger
 )
 
 func init() {
-	Log = NewDoLog()
+	var DoLog = log.New(os.Stdout,"dolog:",log.Ldate|log.Ltime)
 }
 
-type DoLog struct {
-	log *log.Logger
-}
-func NewDoLog() *DoLog {
-	return &DoLog{
-		log:log.New(os.Stdout,"dolog:",log.Ldate|log.Ltime),
-	}
-}
-
-func (d *DoLog)Info(info string,v ...interface{}) {
-	d.log.SetPrefix("[info]")
+func Info(info string,v ...interface{}) {
+	DoLog.SetPrefix("[info]")
 	if v == nil || len(v) == 0 {
 		d.log.Printf(info)
 	} else {
