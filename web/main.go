@@ -15,17 +15,12 @@ import (
 func main() {
 	// 初始化配置文件
 	cfg := dogo.NewConfig("")
-
+	// 初始化日志
 	dogo.InitLog(cfg.Log)
 	dogo.Info("测试")
-	// new DB
-	// db,err := dogo.NewDB(cfg.Database)
-	// if err != nil {
-	// 	dogo.Log.Info("init db failed")
-	// }
-
-	// // 设置DB连接池
-	// dogo.SetDB(db)
+	// 初始化DB
+	dogo.InitDatabse(cfg.Database)
+	dogo.Info("测试db",dogo.DoDB)
 	// new server
 	server,err := dogo.NewServer(cfg.Server)
 	if err != nil {

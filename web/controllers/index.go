@@ -23,8 +23,6 @@ func (i *IndexController)Json ()  {
 	var user_email models.UserEmail
 	db.First(&user_email)
 
-	dogo.Info("Json")
-
 	i.SetData("code","1")
 	i.SetData("msg","ok")
 	// i.SetData("data",make(map[string]string, 0))

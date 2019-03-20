@@ -13,6 +13,13 @@ var (
 	DoDB *gorm.DB
 )
 
+func InitDatabse(cfg DatabaseConfig) {
+	var err error
+	DoDB,err = NewDB(cfg)
+	if err != nil {
+		Info("DoDB error:%+v",DoDB)
+	}
+}
 
 func GetDB() *gorm.DB {
 	if nil != DoDB {
@@ -48,7 +55,7 @@ func NewDB(cfg DatabaseConfig) (*gorm.DB,error) {
 		db.DB().SetMaxOpenConns(cfg.MaxOpenConns)
 
 		// Database logging
-		db.LogMode(true)
+		db.LogMode(false)
 
 		return db, nil
 	}
