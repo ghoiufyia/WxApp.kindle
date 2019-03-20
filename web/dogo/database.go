@@ -22,7 +22,7 @@ func GetDB() *gorm.DB {
 	var err error
 	DoDB,err = NewDB(cfg.Database)
 	if err != nil {
-		Log.Info("DoDB error:%+v",DoDB)
+		Info("DoDB error:%+v",DoDB)
 	}
 	return DoDB
 }

@@ -15,6 +15,9 @@ import (
 func main() {
 	// 初始化配置文件
 	cfg := dogo.NewConfig("")
+
+	dogo.InitLog(cfg.Log)
+	dogo.Info("测试")
 	// new DB
 	// db,err := dogo.NewDB(cfg.Database)
 	// if err != nil {
@@ -26,7 +29,7 @@ func main() {
 	// new server
 	server,err := dogo.NewServer(cfg.Server)
 	if err != nil {
-		dogo.Log.Info("init server failed")
+		dogo.Info("init server failed")
 	}
 	// newApp
 	doApp := dogo.NewApp(cfg)

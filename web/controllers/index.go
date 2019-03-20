@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/ghoiufyia/WxApp.kindle/web/dogo"
-	"fmt"
+	// "fmt"
 	"github.com/ghoiufyia/WxApp.kindle/web/models"
 	// "database/sql"
 	// _ "github.com/go-sql-driver/mysql"
@@ -23,6 +23,8 @@ func (i *IndexController)Json ()  {
 	var user_email models.UserEmail
 	db.First(&user_email)
 
+	dogo.Info("Json")
+
 	i.SetData("code","1")
 	i.SetData("msg","ok")
 	// i.SetData("data",make(map[string]string, 0))
@@ -32,11 +34,6 @@ func (i *IndexController)Json ()  {
 
 
 func (i *IndexController)Index ()  {
-	fmt.Printf("adsd===============================")
-	// fmt.Println(i.Ctx)
-	// fmt.Printf("%+v",i.Ctx.Request)
-
-	fmt.Printf("adsd========ffffff=======================")
 
 	i.Render()
 }
@@ -48,7 +45,7 @@ func (i *IndexController)Rpc ()  {
 	// 连接远端服务
 	conn,err := grpc.Dial(ADDRESS,grpc.WithInsecure())
 	if err != nil {
-		dogo.Log.Info("connect error %v",err)
+		dogo.Info("connect error %v",err)
 	}
 	defer conn.Close()
 	// 定义客户端
@@ -59,10 +56,10 @@ func (i *IndexController)Rpc ()  {
 	// 调用 RPC
 	resp, err := client.CreateEmail(context.Background(), &resuest)
 	if err != nil {
-		dogo.Log.Info("create email error: %v", err)
+		dogo.Info("create email error: %v", err)
 	}
 
-	dogo.Log.Info("created: %+v", resp)
+	dogo.Info("created: %+v", resp)
 	conn.Close()
 
 	// i.Render()

@@ -1,0 +1,7 @@
+[Info]2019/03/20 16:10:35.134913 [测试]
+[Info]2019/03/20 16:10:44.636489 [%v /json/]
+[Info]2019/03/20 16:10:44.636489 [%+v {接口 GET /json/ controllers.IndexController Json}]
+[Info]2019/03/20 16:10:45.100258 [Json]
+[Info]2019/03/20 16:10:53.423974 [%v /json/]
+[Info]2019/03/20 16:10:53.423974 [%+v {接口 GET /json/ controllers.IndexController Json}]
+[Info]2019/03/20 16:10:53.454893 [Json]
