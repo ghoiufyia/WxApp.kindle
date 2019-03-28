@@ -16,7 +16,7 @@ import (
 
 func main() {
 
-	acfg := account.NewConfig("./config/account.json");
+	acfg := account.NewConfig("");
 	dogo.Info(acfg)
 
 	// 初始化配置文件
