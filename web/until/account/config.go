@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"strings"
 	"encoding/json"
-	// "fmt"
+	"fmt"
 )
 
 type AccountConfig struct {
@@ -26,7 +26,7 @@ var DefaultConfig = &AccountConfig{
 	CallBack:"http://kindle.poetnote.com/poetnote/callback/",
 }
 
-var config = &AccountConfig{}
+var Config = &AccountConfig{}
 
 func NewDefaultConfig() *AccountConfig {
 	return DefaultConfig
@@ -34,9 +34,10 @@ func NewDefaultConfig() *AccountConfig {
 
 func NewConfig(configFile string) *AccountConfig {
 	if configFile != "" {
-		err := parseFile(config, configFile)
+		err := parseFile(Config, configFile)
+		fmt.Printf("%+v",Config)
 		if err == nil {
-			return config
+			return Config
 		}
 	}
 	return NewDefaultConfig()
@@ -64,6 +65,7 @@ func unmarshalJSON(data []byte,config interface{}) error{
 		return errors.New("invalid json string")
 	}
 	err := json.Unmarshal(data,config)
+	fmt.Printf("%+v",config)
 	if err != nil {
 		return err
 	}
