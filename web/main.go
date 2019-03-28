@@ -10,9 +10,15 @@ import (
 	"github.com/ghoiufyia/WxApp.kindle/web/routes"
 	"github.com/ghoiufyia/WxApp.kindle/web/dogo"
 
+	"github.com/ghoiufyia/WxApp.kindle/web/until/account"
+
 )
 
 func main() {
+
+	acfg := account.NewConfig("./config/account.json");
+	dogo.Info(acfg)
+
 	// 初始化配置文件
 	cfg := dogo.NewConfig("")
 	// 初始化日志

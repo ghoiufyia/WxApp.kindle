@@ -19,7 +19,7 @@ const (
 )
 
 var (
-	level = LevelError
+	level = LevelDebug
 	DoLog *log.Logger
 )
 func InitLog(cfg LogConfig) {
