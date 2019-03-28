@@ -26,14 +26,14 @@ var DefaultConfig = &AccountConfig{
 	CallBack:"http://kindle.poetnote.com/poetnote/callback/",
 }
 
+var config = &AccountConfig{}
+
 func NewDefaultConfig() *AccountConfig {
 	return DefaultConfig
 }
 
 func NewConfig(configFile string) *AccountConfig {
 	if configFile != "" {
-		config := &AccountConfig{}
-		return config
 		err := parseFile(config, configFile)
 		if err == nil {
 			return config
@@ -63,7 +63,7 @@ func unmarshalJSON(data []byte,config interface{}) error{
 	if json.Valid(data) != true {
 		return errors.New("invalid json string")
 	}
-	err := json.Unmarshal(data,config)
+	err := json.Unmarshal(data,AccountConfig)
 	if err != nil {
 		return err
 	}
