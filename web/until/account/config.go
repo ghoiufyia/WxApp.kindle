@@ -63,7 +63,7 @@ func unmarshalJSON(data []byte,config interface{}) error{
 	if json.Valid(data) != true {
 		return errors.New("invalid json string")
 	}
-	err := json.Unmarshal(data,AccountConfig)
+	err := json.Unmarshal(data,config)
 	if err != nil {
 		return err
 	}
