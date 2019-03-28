@@ -33,6 +33,7 @@ func NewDefaultConfig() *AccountConfig {
 func NewConfig(configFile string) *AccountConfig {
 	if configFile != "" {
 		config := &AccountConfig{}
+		return config
 		err := parseFile(config, configFile)
 		if err == nil {
 			return config
