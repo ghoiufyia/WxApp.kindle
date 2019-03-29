@@ -1,4 +1,4 @@
-package dogo
+package do-micro
 
 import (
 	"log"
@@ -20,11 +20,11 @@ const (
 
 var (
 	level = LevelError
-	DoLog *log.Logger
+	Log *log.Logger
 )
 func InitLog(cfg LogConfig) {
 	SetLogLevel(cfg.Level)
-	DoLog = log.New(os.Stdout,"",log.Ldate|log.Ltime|log.Lmicroseconds)
+	Log = log.New(os.Stdout,"",log.Ldate|log.Ltime|log.Lmicroseconds)
 	if cfg.Driver == "file" {
 		path := cfg.Path
 		t := time.Now()
@@ -34,7 +34,7 @@ func InitLog(cfg LogConfig) {
 		if err != nil {
 			Error(err)
 		}
-		DoLog.SetOutput(f)
+		Log.SetOutput(f)
 	}
 }
 
@@ -44,49 +44,49 @@ func SetLogLevel(l int) {
 
 func Debug(v ...interface{}) {
 	if level <= LevelDebug {
-		DoLog.SetPrefix("[Debug]")
-		DoLog.Printf("%v\n",v)
+		Log.SetPrefix("[Debug]")
+		Log.Printf("%v\n",v)
 	}
 }
 func Info(v ...interface{}) {
 	if level <= LevelInfo {
-		DoLog.SetPrefix("[Info]")
-		DoLog.Printf("%v\n",v)
+		Log.SetPrefix("[Info]")
+		Log.Printf("%v\n",v)
 	}
 }
 func Notice(v ...interface{}) {
 	if level <= LevelNotice {
-		DoLog.SetPrefix("[Notice]")
-		DoLog.Printf("%v\n",v)
+		Log.SetPrefix("[Notice]")
+		Log.Printf("%v\n",v)
 	}
 }
 func Warning(v ...interface{}) {
 	if level <= LevelWarning {
-		DoLog.SetPrefix("[Warning]")
-		DoLog.Printf("%v\n",v)
+		Log.SetPrefix("[Warning]")
+		Log.Printf("%v\n",v)
 	}
 }
 func Error(v ...interface{}) {
 	if level <= LevelError {
-		DoLog.SetPrefix("[Error]")
-		DoLog.Printf("%v\n",v)
+		Log.SetPrefix("[Error]")
+		Log.Printf("%v\n",v)
 	}
 }
 func Critical(v ...interface{}) {
 	if level <= LevelCritical {
-		DoLog.SetPrefix("[Critical]")
-		DoLog.Printf("%v\n",v)
+		Log.SetPrefix("[Critical]")
+		Log.Printf("%v\n",v)
 	}
 }
 func Alert(v ...interface{}) {
 	if level <= LevelAlert {
-		DoLog.SetPrefix("[Alert]")
-		DoLog.Printf("%v\n",v)
+		Log.SetPrefix("[Alert]")
+		Log.Printf("%v\n",v)
 	}
 }
 func Emergency(v ...interface{}) {
 	if level <= LevelEmergency {
-		DoLog.SetPrefix("[Emergency]")
-		DoLog.Printf("%v\n",v)
+		Log.SetPrefix("[Emergency]")
+		Log.Printf("%v\n",v)
 	}
 }

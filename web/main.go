@@ -16,14 +16,18 @@ import (
 
 func main() {
 
-	acfg := account.NewConfig("");
-	dogo.Info(acfg)
-
+	
 	// 初始化配置文件
 	cfg := dogo.NewConfig("")
 	// 初始化日志
 	dogo.InitLog(cfg.Log)
 	dogo.Info("测试")
+
+	acfg := account.NewConfig("./config/account.json");
+	dogo.Info(acfg.Name)
+	return
+
+
 	// 初始化DB
 	dogo.InitDatabse(cfg.Database)
 	dogo.Info("测试db",dogo.DoDB)

@@ -1,4 +1,4 @@
-package dogo
+package do-micro
 
 import (
 	"net/http"

@@ -1,73 +1,26 @@
-package dogo
+package do-micro
 
 import (
 	"errors"
 	"io/ioutil"
 	"strings"
+	"encoding/json"
+	// "fmt"
 )
 
-type DatabaseConfig struct {
-	Type         string `default:"mysql"`
-	Host         string `default:"localhost"`
-	Port         int    `default:"3306"`
-	User         string `default:"gravitee"`
-	Password     string `default:"gravitee"`
-	DatabaseName string `default:"gravitee"`
-	MaxIdleConns int    `default:"5"`
-	MaxOpenConns int    `default:"5"`
-}
+// func NewDefaultConfig() *AccountConfig {
+// 	return DefaultConfig
+// }
 
-type ServerConfig struct {
-	ServerPort    int  `default:"8080"`
-}
-
-type LogConfig struct {
-	Level	int
-	Driver	string
-	Path	string
-}
-
-type Config struct {
-	Database	DatabaseConfig
-	Server    	ServerConfig
-	Log			LogConfig
-	IsDevelopment bool `default:"True"`
-}
-
-var DefaultConfig = &Config{
-	Database: DatabaseConfig{
-		Type:         "mysql",
-		Host:         "101.132.37.148",
-		Port:         33061,
-		User:         "root",
-		Password:     "Sn93007997",
-		DatabaseName: "kindle",
-		MaxIdleConns: 5,
-		MaxOpenConns: 5,
-	},
-	Server:	ServerConfig {
-		ServerPort:		8080,
-	},
-	Log: LogConfig {
-		Level:		LevelDebug,
-		Driver:		"file",
-		Path:		"storage/logs/",
-	},
-}
-
-func NewDefaultConfig() *Config {
-	return DefaultConfig
-}
-
-func NewConfig(configFile string) *Config {
-	if configFile != "" {
-		config := &Config{}
-		err := parseFile(config, configFile)
-		if err == nil {
-			return config
+func NewConfig(config interface{}, file string) error {
+	if file != "" {
+		err := parseFile(config, file)
+		// fmt.Printf("%+v",config)
+		if err != nil {
+			return err
 		}
 	}
-	return NewDefaultConfig()
+	return nil
 }
 
 func parseFile(config interface{},file string) error {
@@ -77,16 +30,24 @@ func parseFile(config interface{},file string) error {
 	}
 	switch {
 	case strings.HasSuffix(file,".json"):
-		Info("%s,type is %s",file,"json")
-		unmarshalJSON(data,config)
+		err = unmarshalJSON(config,data)
+		if err != nil {
+			return err
+		}
 	default :
-		Info("There is no valid config file,json,yml or tml is needed.")
-		Info("Now is using the default config...")
 		return errors.New("invalid config file")
 	}
 	return nil
 }
-
-func unmarshalJSON(data,config interface{}) {
-
+//解析json数据
+func unmarshalJSON(config interface{},data []byte) error{
+	if json.Valid(data) != true {
+		return errors.New("invalid json string")
+	}
+	err := json.Unmarshal(data,config)
+	// fmt.Printf("%+v",config)
+	if err != nil {
+		return err
+	}
+	return nil
 }

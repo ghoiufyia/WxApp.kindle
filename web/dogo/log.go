@@ -45,48 +45,48 @@ func SetLogLevel(l int) {
 func Debug(v ...interface{}) {
 	if level <= LevelDebug {
 		DoLog.SetPrefix("[Debug]")
-		DoLog.Printf("%v\n",v)
+		DoLog.Printf("%+v\n",v)
 	}
 }
 func Info(v ...interface{}) {
 	if level <= LevelInfo {
 		DoLog.SetPrefix("[Info]")
-		DoLog.Printf("%v\n",v)
+		DoLog.Printf("%+v\n",v)
 	}
 }
 func Notice(v ...interface{}) {
 	if level <= LevelNotice {
 		DoLog.SetPrefix("[Notice]")
-		DoLog.Printf("%v\n",v)
+		DoLog.Printf("%+v\n",v)
 	}
 }
 func Warning(v ...interface{}) {
 	if level <= LevelWarning {
 		DoLog.SetPrefix("[Warning]")
-		DoLog.Printf("%v\n",v)
+		DoLog.Printf("%+v\n",v)
 	}
 }
 func Error(v ...interface{}) {
 	if level <= LevelError {
 		DoLog.SetPrefix("[Error]")
-		DoLog.Printf("%v\n",v)
+		DoLog.Printf("%+v\n",v)
 	}
 }
 func Critical(v ...interface{}) {
 	if level <= LevelCritical {
 		DoLog.SetPrefix("[Critical]")
-		DoLog.Printf("%v\n",v)
+		DoLog.Printf("%+v\n",v)
 	}
 }
 func Alert(v ...interface{}) {
 	if level <= LevelAlert {
 		DoLog.SetPrefix("[Alert]")
-		DoLog.Printf("%v\n",v)
+		DoLog.Printf("%+v\n",v)
 	}
 }
 func Emergency(v ...interface{}) {
 	if level <= LevelEmergency {
 		DoLog.SetPrefix("[Emergency]")
-		DoLog.Printf("%v\n",v)
+		DoLog.Printf("%+v\n",v)
 	}
 }

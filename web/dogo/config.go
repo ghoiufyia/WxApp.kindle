@@ -50,9 +50,14 @@ var DefaultConfig = &Config{
 	},
 	Log: LogConfig {
 		Level:		LevelDebug,
-		Driver:		"file",
+		Driver:		"stdout",
 		Path:		"storage/logs/",
 	},
+	// Log: LogConfig {
+	// 	Level:		LevelDebug,
+	// 	Driver:		"file",
+	// 	Path:		"storage/logs/",
+	// },
 }
 
 func NewDefaultConfig() *Config {
