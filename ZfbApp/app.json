@@ -1,0 +1,23 @@
+{
+  "pages": [
+    "pages/email/email",
+    "pages/user/user",
+    "pages/todos/todos",
+    "pages/add-todo/add-todo"
+    
+    
+  ],
+  "window": {
+    "defaultTitle": "kindle",
+    "titleBarColor": "#323239"
+  },
+  "tabBar": {
+    "items": [{
+      "pagePath": "pages/email/",
+      "name": "附件"
+    },{
+      "pagePath": "pages/user/user",
+      "name": "我的"
+    }]
+  }
+}

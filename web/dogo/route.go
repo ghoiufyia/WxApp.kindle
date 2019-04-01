@@ -49,7 +49,7 @@ func (rm *RouteMap)Router(name string,method string,pattern string,c ControllerI
 
 //实现http的server handler
 func (rm *RouteMap)ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	Log.Info("%v",r.URL)
+	Info("%v",r.URL)
 	var myRoute route
 	// Log.Info("%+v",myRoute)
 
@@ -73,11 +73,11 @@ func (rm *RouteMap)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	Log.Info("%+v",myRoute)
+	Info("%+v",myRoute)
 
 	// 未匹配到路由
 	if nil == myRoute.Controller {
-		Log.Info("未找到请求")
+		Info("未找到请求")
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 		w.WriteHeader(200)
 		json.NewEncoder(w).Encode(map[string]interface{}{

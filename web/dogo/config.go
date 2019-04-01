@@ -1,7 +1,6 @@
 package dogo
 
 import (
-	// "github.com/jinzhu/configor"
 	"errors"
 	"io/ioutil"
 	"strings"
@@ -22,9 +21,16 @@ type ServerConfig struct {
 	ServerPort    int  `default:"8080"`
 }
 
+type LogConfig struct {
+	Level	int
+	Driver	string
+	Path	string
+}
+
 type Config struct {
 	Database	DatabaseConfig
 	Server    	ServerConfig
+	Log			LogConfig
 	IsDevelopment bool `default:"True"`
 }
 
@@ -42,6 +48,16 @@ var DefaultConfig = &Config{
 	Server:	ServerConfig {
 		ServerPort:		8080,
 	},
+	Log: LogConfig {
+		Level:		LevelDebug,
+		Driver:		"stdout",
+		Path:		"storage/logs/",
+	},
+	// Log: LogConfig {
+	// 	Level:		LevelDebug,
+	// 	Driver:		"file",
+	// 	Path:		"storage/logs/",
+	// },
 }
 
 func NewDefaultConfig() *Config {
@@ -66,11 +82,11 @@ func parseFile(config interface{},file string) error {
 	}
 	switch {
 	case strings.HasSuffix(file,".json"):
-		Log.Info("%s,type is %s",file,"json")
+		Info("%s,type is %s",file,"json")
 		unmarshalJSON(data,config)
 	default :
-		Log.Info("There is no valid config file,json,yml or tml is needed.")
-		Log.Info("Now is using the default config...")
+		Info("There is no valid config file,json,yml or tml is needed.")
+		Info("Now is using the default config...")
 		return errors.New("invalid config file")
 	}
 	return nil

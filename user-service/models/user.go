@@ -1,11 +1,10 @@
 package models
 
 import (
-	// "github.com/jinzhu/gorm"
 	"github.com/ghoiufyia/WxApp.kindle/web/dogo"
 )
 
-type Email struct {
+type User struct {
 	dogo.BaseModel
 	UserId		uint `gorm:"not null;default ''"`	
 	ToEmail		string `gorm:"type:varchar(100)"`

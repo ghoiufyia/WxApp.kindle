@@ -12,3 +12,8 @@ func NewServer(cfg ServerConfig) (*http.Server,error) {
 		Addr:addr,
 	},nil
 }
+
+//注册Handler
+func SetServerHandler(server *http.Server,handler *RouteMap) {
+	server.Handler = handler
+}

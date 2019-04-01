@@ -1,24 +1,33 @@
-package dogo
+package databse
 
 import (
-	// "database/sql"
-	// _ "github.com/go-sql-driver/mysql"
 	"fmt"
-	_ "github.com/jinzhu/gorm/dialects/mysql"
+	// _ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/jinzhu/gorm"
-	// "errors"
 )
+
+type DatabaseConfig struct {
+	Type         string `default:"mysql"`
+	Host         string `default:"localhost"`
+	Port         int    `default:"3306"`
+	User         string `default:"gravitee"`
+	Password     string `default:"gravitee"`
+	DatabaseName string `default:"gravitee"`
+	MaxIdleConns int    `default:"5"`
+	MaxOpenConns int    `default:"5"`
+}
 
 var (
 	DoDB *gorm.DB
 )
 
-func InitDatabse(cfg DatabaseConfig) {
+func InitDatabse(cfg DatabaseConfig) error{
 	var err error
 	DoDB,err = NewDB(cfg)
 	if err != nil {
-		Info("DoDB error:%+v",DoDB)
+		return err
 	}
+	return nil
 }
 
 func GetDB() *gorm.DB {
