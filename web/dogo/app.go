@@ -19,13 +19,11 @@ func init() {
 }
 // 定义结构
 type App struct {
-	Handler		*RouteMap
 	Server 		*http.Server
 }
 // 生成App
 func NewApp(cfg *Config) *App{
 	return &App{
-		Handler:nil,
 		Server:nil,
 	}
 }
@@ -33,10 +31,7 @@ func NewApp(cfg *Config) *App{
 func (a *App)RegisterServer(server *http.Server) {
 	a.Server = server
 }
-//注册Handler
-func (a *App)RegisterHandler(handler *RouteMap) {
-	a.Handler = handler
-}
+
 
 func SetStaticDir(url string,path string) {
 	StaticDir[url] = path
@@ -44,7 +39,7 @@ func SetStaticDir(url string,path string) {
 
 func (a *App)Run(){
 	// Log.Info("%v",a.Handler)
-	a.Server.Handler = a.Handler
+	// a.Server.Handler = a.Handler
 	err := a.Server.ListenAndServe()
 	if err != nil {
 		fmt.Println(err)
