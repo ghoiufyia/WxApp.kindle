@@ -8,15 +8,15 @@ import (
 	// "github.com/urfave/negroni"
 	// "github.com/ghoiufyia/WxApp.kindle/web/modules"
 	"github.com/ghoiufyia/WxApp.kindle/web/routes"
-	"github.com/ghoiufyia/WxApp.kindle/web/dogo/session"
+	// "github.com/ghoiufyia/WxApp.kindle/web/dogo/session"
 	"github.com/ghoiufyia/WxApp.kindle/web/dogo"
 	"github.com/ghoiufyia/WxApp.kindle/web/until/account"
 
 )
 
 func main() {
-	session.Read("qwert")
-	return 
+	// session.Read("qwert")
+	// return 
 
 	
 	// 初始化配置文件
