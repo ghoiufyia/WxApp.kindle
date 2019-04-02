@@ -8,7 +8,7 @@ WORKDIR /app
 # 将微服务的服务端可运行文件拷贝到 /app 下
 ADD kindle /app/kindle
 
-# ADD views /app/views
+ADD views /app/views
 ADD storage /app/storage
 ADD config /app/config
 ADD public /app/public
