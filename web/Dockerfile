@@ -10,7 +10,7 @@ ADD kindle /app/kindle
 
 # ADD views /app/views
 ADD storage /app/storage
-ADD conf /app/config
+ADD config /app/config
 ADD public /app/public
 
 
