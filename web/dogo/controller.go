@@ -2,8 +2,8 @@ package dogo
 
 import (
 	"fmt"
-	"html/template"
-	"path"
+	// "html/template"
+	// "path"
 	"encoding/json"
 	
 )
@@ -19,7 +19,7 @@ type ControllerInterface interface {
 	Render()
 	RenderJson()
 	RenderJsonByData(data map[string]interface{})
-	RenderTemplate(data map[string]interface{})
+	// RenderTemplate(data map[string]interface{})
 	Finish()
 	SetData(string,interface{})
 }
@@ -39,30 +39,21 @@ func (c *Controller) SetData(key string,value interface{}) {
 }
 
 func (c *Controller)Render() {
-	var ViewsPath string = "./views"
-	var filenames []string;
-
-	filenames = append(filenames,path.Join(ViewsPath,"/layouts/header.tmpl"))
-	filenames = append(filenames,path.Join(ViewsPath,"/index/index.tmpl"))
-	filenames = append(filenames,path.Join(ViewsPath,"/layouts/footer.tmpl"))
-	t,err := template.ParseFiles(filenames...)
-	if err != nil {
-		fmt.Printf("%v",err)
-	}
-	// err = t.ExecuteTemplate(c.Ctx.ResponseWriter,"header",nil)
-	err = t.ExecuteTemplate(c.Ctx.ResponseWriter,"content",nil)
-	// err = t.ExecuteTemplate(c.Ctx.ResponseWriter,"footer",nil)
-
-
+	// var ViewsPath string = "./views"
+	// var filenames []string;
 
 	// filenames = append(filenames,path.Join(ViewsPath,"/layouts/header.tmpl"))
+	// filenames = append(filenames,path.Join(ViewsPath,"/index/index.tmpl"))
 	// filenames = append(filenames,path.Join(ViewsPath,"/layouts/footer.tmpl"))
 	// t,err := template.ParseFiles(filenames...)
 	// if err != nil {
 	// 	fmt.Printf("%v",err)
 	// }
-	// err = t.ExecuteTemplate(c.Ctx.ResponseWriter,"header",nil)
-	// err = t.ExecuteTemplate(c.Ctx.ResponseWriter,"footer",nil)
+
+	// err = t.ExecuteTemplate(c.Ctx.ResponseWriter,"content",nil)
+
+	RenderTemplate(c.Ctx.ResponseWriter,"index.html",nil)
+
 }
 
 func (c *Controller)RenderJson() {
@@ -79,18 +70,18 @@ func (c *Controller)RenderJsonByData(data map[string]interface{}) {
 	json.NewEncoder(responseWriter).Encode(data)
 }
 
-func (c *Controller)RenderTemplate(data map[string]interface{}) {
-	var ViewsPath string = "./"
-	var filenames []string;
-	filenames = append(filenames,path.Join(ViewsPath,"views/layouts/footer.tmpl"))
-	filenames = append(filenames,path.Join(ViewsPath,"views/layouts/header.tmpl"))
-	t,err := template.ParseFiles(filenames...)
-	if err != nil {
-		fmt.Printf("%v",err)
-	}
-	err = t.ExecuteTemplate(c.Ctx.ResponseWriter,"footer",nil)
-	err = t.ExecuteTemplate(c.Ctx.ResponseWriter,"header",nil)
-}
+// func (c *Controller)RenderTemplate(data map[string]interface{}) {
+// 	var ViewsPath string = "./"
+// 	var filenames []string;
+// 	filenames = append(filenames,path.Join(ViewsPath,"views/layouts/footer.tmpl"))
+// 	filenames = append(filenames,path.Join(ViewsPath,"views/layouts/header.tmpl"))
+// 	t,err := template.ParseFiles(filenames...)
+// 	if err != nil {
+// 		fmt.Printf("%v",err)
+// 	}
+// 	err = t.ExecuteTemplate(c.Ctx.ResponseWriter,"footer",nil)
+// 	err = t.ExecuteTemplate(c.Ctx.ResponseWriter,"header",nil)
+// }
 
 func (c *Controller)Error() {
 	// c.Ctx.ResponseWriter.Header().Set("Content-Type", "application/json; charset=utf-8")
