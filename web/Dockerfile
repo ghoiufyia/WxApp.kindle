@@ -6,7 +6,7 @@ RUN mkdir /app
 # 将工作目录切换到 /app 下
 WORKDIR /app
 # 将微服务的服务端可运行文件拷贝到 /app 下
-ADD dogo /app/dogo
+ADD kindle /app/kindle
 
 # ADD views /app/views
 ADD static /app/storage
@@ -15,4 +15,4 @@ ADD public /app/public
 
 
 # 运行服务端
-CMD ["./dogo"]
+CMD ["./kindle"]
