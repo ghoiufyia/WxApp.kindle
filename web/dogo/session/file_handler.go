@@ -2,28 +2,71 @@ package session
 
 import (
 	"os"
-	"github.com/ghoiufyia/WxApp.kindle/web/dogo/log"
+	"io/ioutil"
+	// "github.com/ghoiufyia/WxApp.kindle/web/dogo/log"
+	// "fmt"
+	"time"
 )
 
-func Open(savePath string,sessionName string) (interface{}) {
+type FileSession struct {
+	lifetime int64
+	savePath string
+}
+
+func (s *FileSession)Open(savePath string,sessionName string) (interface{}) {
 	return true
 }
-func Close() (interface{}) {
+func (s *FileSession)Close() (interface{}) {
 	return true
 }
-func Read(sessionId string) interface{} {
-	path := "./storage/session"+"/"+sessionId
-	fileInfo,err := os.Stat(path)
-	fmt.Printf("%+v",fileInfo)
-	fmt.Printf("%+v",err)
-	return true
-}
-func Write(sessionId string,data interface{}) (interface{}) {
-	path := "./storage/session"+"/"+sessionId
-	f, err := os.OpenFile(path, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-	if err != nil {
-		
+func (s *FileSession)Read(sessionId string) interface{} {
+	path := s.savePath+"/"+sessionId
+	fileInfo,_ := os.Stat(path)
+	if fileInfo == nil {
+		return ""
 	}
+	t := time.Now()
+	if fileInfo.ModTime().Unix() > t.Unix() + s.lifetime {
+		content,err := ioutil.ReadFile(path)
+		if err != nil {
+			return err
+		}
+		return content
+	}
+	// fmt.Printf("%+v",fileInfo)
+	// fmt.Printf("%+v",err)
+	return ""
 }
-// func Destroy(sessionId string)(interface{}) {}
-// func Gc(lifetime int32) {}
+func (s *FileSession)Write(sessionId string,data string) (error) {
+	path := s.savePath+"/"+sessionId
+	err := ioutil.WriteFile(path,[]byte(data),0644)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (s *FileSession)Destroy(sessionId string) (error) {
+	path := s.savePath+"/"+sessionId
+	err := os.Remove(path)
+	if err != nil {
+		return nil
+	}
+	return nil
+}
+func (s *FileSession)Gc() error {
+	f,err := os.Open(s.savePath)
+	if err != nil {
+		return err
+	}
+	fileList,err := f.Readdir(0)
+	if err != nil {
+		return err
+	}
+	t := time.Now()
+	for _,fl := range fileList {
+		if fl.ModTime().Unix() > t.Unix() + s.lifetime {
+			os.Remove(s.savePath+fl.Name())
+		}
+	}
+	return nil
+}
