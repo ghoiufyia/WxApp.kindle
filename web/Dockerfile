@@ -9,7 +9,7 @@ WORKDIR /app
 ADD kindle /app/kindle
 
 # ADD views /app/views
-ADD static /app/storage
+ADD storage /app/storage
 ADD conf /app/config
 ADD public /app/public
 
