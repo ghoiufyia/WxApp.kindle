@@ -19,7 +19,7 @@ func (s *FileSession)Open(savePath string,sessionName string) (interface{}) {
 func (s *FileSession)Close() (interface{}) {
 	return true
 }
-func (s *FileSession)Read(sessionId string) interface{} {
+func (s *FileSession)Read(sessionId string) (Store,error) {
 	path := s.savePath+"/"+sessionId
 	fileInfo,_ := os.Stat(path)
 	if fileInfo == nil {

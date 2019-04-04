@@ -3,36 +3,83 @@ package session
 import (
 	// "github.com/gorilla/sessions"
 	"sync"
+	"net/http"
+	"net/url"
+	"github.com/RichardKnop/uuid"
+	"github.com/ghoiufyia/WxApp.kindle/web/until/config"
 )
 
-type Manager struct {
+type Config struct {
 	cookieName	string
-	lock		sync.Mutex
 	lifetime	int64
-	Handler		handler
-}
-var lock sync.Mutex
-var DefaultManager = Manager{
-	cookieName:"dogo_sid",
-	lifetime: 60*60*24,
-	Handler:	&FileSession {
-		savePath: "storage/session",
-	},
+	handlerType	string
+	filePath	string
 }
 
-func NewManager() *Manager {
-	return &Manager{
-		cookieName: "dogo_sid",
-		lifetime: 60*60*24,
-		Handler:	&FileSession {
+type Manager struct {
+	config		*Config
+	lock		sync.Mutex
+	handle		handler
+}
+var lock sync.Mutex
+
+var defaultConfig = Config {
+	cookieName:"sid_",
+	lifetime: 60*60*24,
+	handlerType: "file",
+	filePath: "storage/session",
+}
+
+func NewManager(cf string) *Manager {
+	var c Config
+	err := config.ParseFile(&c,cf)
+	if err != nil {
+		c = defaultConfig
+	}
+	var myHandler handler
+	switch c.handlerType {
+	case "file":
+		myHandler = &FileSession {
+			savePath: c.filePath,
+		}
+	default :
+	myHandler = &FileSession {
 			savePath: "storage/session",
-		},
+		}
+	}
+
+	return &Manager{
+		config: &c,
+		handle: myHandler,
 	}
 }
 
-type Session interface {
-	sessionId() (string)
+func (m *Manager)getSid(r *http.Request) (string,error) {
+	cookie, err := r.Cookie(m.config.cookieName)
+	if err != nil || cookie.Value == "" {
+		return "", nil
+	}
+	return url.QueryUnescape(cookie.Value)
 }
+
+func (m *Manager)SessionStart(w http.ResponseWriter, r *http.Request) (*Store,error) {
+	sid,err := m.getSid(r)
+	if err != nil {
+		return nil,err
+	}
+	if sid == "" {
+		sid = m.SeesionID()
+	}
+	 m.handle.Read(sid)
+	 
+
+	return nil,err
+}
+
+func (m *Manager) SeesionID() (string) {
+	return uuid.New()
+}
+
 
 
 

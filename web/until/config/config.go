@@ -1,4 +1,4 @@
-package account
+package config
 
 import (
 	"errors"
@@ -8,43 +8,8 @@ import (
 	// "fmt"
 )
 
-type AccountConfig struct {
-	Name			string
-	ClientId		string
-	ClientSecret	string
-	Platform		string
-	AuthType		string
-	CallBack		string
-}
-
-var DefaultConfig = &AccountConfig{
-	Name:"poetnote1",
-	Platform:"poetnote",
-	ClientId:"1",
-	ClientSecret:"Y1KU5rX5mCtEolcTOF44ftGGy8LRn0pH1jlO7qIU",
-	AuthType:"password",
-	CallBack:"http://kindle.poetnote.com/poetnote/callback/",
-}
-
-
-
-func NewDefaultConfig() *AccountConfig {
-	return DefaultConfig
-}
-
-func NewConfig(configFile string) *AccountConfig {
-	if configFile != "" {
-		var config = &AccountConfig{}
-		err := parseFile(config, configFile)
-		// fmt.Printf("%+v",config)
-		if err == nil {
-			return config
-		}
-	}
-	return NewDefaultConfig()
-}
-
-func parseFile(config interface{},file string) error {
+//解析配置文件config  *Config
+func ParseFile(config interface{},file string) error {
 	data, err := ioutil.ReadFile(file)
 	if err != nil {
 		return err
