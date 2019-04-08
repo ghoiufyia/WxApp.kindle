@@ -19,7 +19,7 @@ type Config struct {
 type Manager struct {
 	config		*Config
 	lock		sync.Mutex
-	handle		handler
+	handler		handler
 }
 var lock sync.Mutex
 
@@ -39,18 +39,18 @@ func NewManager(cf string) *Manager {
 	var myHandler handler
 	switch c.handlerType {
 	case "file":
-		myHandler = &FileSession {
+		myHandler = &FileHandler {
 			savePath: c.filePath,
 		}
 	default :
-	myHandler = &FileSession {
-			savePath: "storage/session",
+		myHandler = &FileHandler {
+			savePath: c.filePath,
 		}
 	}
 
 	return &Manager{
 		config: &c,
-		handle: myHandler,
+		handler: myHandler,
 	}
 }
 
@@ -62,7 +62,7 @@ func (m *Manager)getSid(r *http.Request) (string,error) {
 	return url.QueryUnescape(cookie.Value)
 }
 
-func (m *Manager)SessionStart(w http.ResponseWriter, r *http.Request) (*Store,error) {
+func (m *Manager)SessionStart(w http.ResponseWriter, r *http.Request) (session Store,err error) {
 	sid,err := m.getSid(r)
 	if err != nil {
 		return nil,err
@@ -70,8 +70,7 @@ func (m *Manager)SessionStart(w http.ResponseWriter, r *http.Request) (*Store,er
 	if sid == "" {
 		sid = m.SeesionID()
 	}
-	 m.handle.Read(sid)
-	 
+	 m.handler.Read(sid)
 
 	return nil,err
 }

@@ -8,28 +8,32 @@ import (
 	"time"
 )
 
-type FileSession struct {
+type FileHandler struct {
 	lifetime int64
 	savePath string
 }
+// Open(savePath string,sessionName string) (interface{})
 
-func (s *FileSession)Open(savePath string,sessionName string) (interface{}) {
+func (s *FileHandler)Open(savePath string,sessionName string) (interface{}) {
 	return true
 }
-func (s *FileSession)Close() (interface{}) {
+// Close() (interface{})
+
+func (s *FileHandler)Close() (interface{}) {
 	return true
 }
-func (s *FileSession)Read(sessionId string) (Store,error) {
+
+func (s *FileHandler)Read(sessionId string) (Store,error) {
 	path := s.savePath+"/"+sessionId
-	fileInfo,_ := os.Stat(path)
+	fileInfo,err := os.Stat(path)
 	if fileInfo == nil {
-		return ""
+		return nil,err
 	}
 	t := time.Now()
 	if fileInfo.ModTime().Unix() > t.Unix() + s.lifetime {
 		content,err := ioutil.ReadFile(path)
 		if err != nil {
-			return err
+			return nil,err
 		}
 		return content
 	}
@@ -37,7 +41,8 @@ func (s *FileSession)Read(sessionId string) (Store,error) {
 	// fmt.Printf("%+v",err)
 	return ""
 }
-func (s *FileSession)Write(sessionId string,data string) (error) {
+
+func (s *FileHandler)Write(sessionId string,data string) (error) {
 	path := s.savePath+"/"+sessionId
 	err := ioutil.WriteFile(path,[]byte(data),0644)
 	if err != nil {
@@ -45,7 +50,8 @@ func (s *FileSession)Write(sessionId string,data string) (error) {
 	}
 	return nil
 }
-func (s *FileSession)Destroy(sessionId string) (error) {
+
+func (s *FileHandler)Destroy(sessionId string) (error) {
 	path := s.savePath+"/"+sessionId
 	err := os.Remove(path)
 	if err != nil {
@@ -53,7 +59,7 @@ func (s *FileSession)Destroy(sessionId string) (error) {
 	}
 	return nil
 }
-func (s *FileSession)Gc() error {
+func (s *FileHandler)Gc() error {
 	f,err := os.Open(s.savePath)
 	if err != nil {
 		return err

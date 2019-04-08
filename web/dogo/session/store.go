@@ -8,6 +8,7 @@ type Store struct {
 	sid		string
 	lock	sync.RWMutex
 	values	map[interface{}]interface{}
+	// Handler	handler
 }
 
 func (s *Store)Set(key,value interface{}) error {
