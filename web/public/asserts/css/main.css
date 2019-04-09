@@ -1,5 +1,18 @@
-.jd_ad_box {
+.ad_v {
+    width: 120px;
+    height: 600px;
+}
+.ad_left {
     position: fixed;
     top: 100px;
     left: 10px;
+    width: 120px;
+    height: 600px;
+}
+
+.ad_right {
+    position: fixed;
+    top: 100px;
+    right: 10px;
+    
 }
