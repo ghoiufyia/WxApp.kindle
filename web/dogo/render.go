@@ -59,6 +59,7 @@ func loadTemplates() {
 	layoutTemplates := map[string][]string{
 		"./views/layouts/base.html": {
 			"./views/index/index.html",
+			"./views/index/list.html",
 		},
 	}
 

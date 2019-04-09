@@ -9,6 +9,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="/public/asserts/css/main.css">
+
+
     <title>{{ template "title" . }}</title>
     <!-- Custom styles for this template -->
     {{ template "links" . }}
@@ -60,12 +63,28 @@
         </form>
       </div>
     </nav>
-      <h1>Hello, world!</h1>
+  
+    <div class="container">
+      <!-- Begin page content -->
+      {{ template "content" . }}
 
-      <div class="container-fluid">
-        <!-- Begin page content -->
-        {{ template "content" . }}
-      </div>
+    </div>
+
+
+    <div class="jd_ad_box">
+      <!-- 京东 -->
+      <script type="text/javascript">
+        var jd_union_unid="302045752",jd_ad_ids="510:6",jd_union_pid="CPuh2ImgLRC4tIOQARoAIKj/pc4GKgA=";
+        var jd_width=120;
+        var jd_height=600;
+        var jd_union_euid="";
+        var p="AhQAVBtbEwcRA2VEH0hfIlgRRgYlXVZaCCsfSlpMWGVEH0hfIl00WQIdSwxvNUU9QFt0ZgkbQR1xcUFZF2sRCxAOVRtaHAQiBVQYWhAGFANWK2tKRk9aZVA1FDJNQwhGaxUGFgJTE1IQCxIAUhxrFDIiNw%3D%3D";
+      </script>
+      <script type="text/javascript" charset="utf-8" src="//u-x.jd.com/static/js/auto.js"></script>
+      <script type="text/javascript" href="/css/main.css"></script>
+
+    </div>
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -75,10 +94,6 @@
     <!-- Custom scripts -->
     {{ template "scripts" . }}
   </body>
-
-  <!-- 京东 -->
-  <script type="text/javascript">var jd_union_unid="302045752",jd_ad_ids="511:6",jd_union_pid="CM7b6+6cLRC4tIOQARoAIMyFpccGKgA=";var jd_width=0;var jd_height=0;var jd_union_euid="";var p="AhQAVBtbEwcRA2VEH0hfIlgRRgYlXVZaCCsfSlpMWGVEH0hfIn8NGwJWSRF6NxglT3wVGQZjLhJrQXdZF2sRCxAOVRtaHAQiBVQYWhAGFANWK2tKRk9aZVA1FDJNQwhGaxUGFgVdGVwcBBMOUxtrFDIiNw%3D%3D";</script><script type="text/javascript" charset="utf-8" src="//u-x.jd.com/static/js/auto.js"></script>
-  <script type="text/javascript" href="/css/main.css"></script>
 </html>
 {{ end }}
 {{ define "links" }}{{ end }}

@@ -19,7 +19,7 @@ type ControllerInterface interface {
 	Render()
 	RenderJson()
 	RenderJsonByData(data map[string]interface{})
-	// RenderTemplate(data map[string]interface{})
+	RenderTemplate(string)
 	Finish()
 	SetData(string,interface{})
 }
@@ -53,6 +53,24 @@ func (c *Controller)Render() {
 	// err = t.ExecuteTemplate(c.Ctx.ResponseWriter,"content",nil)
 
 	RenderTemplate(c.Ctx.ResponseWriter,"index.html",nil)
+
+}
+
+func (c *Controller)RenderTemplate(tmpl string) {
+	// var ViewsPath string = "./views"
+	// var filenames []string;
+
+	// filenames = append(filenames,path.Join(ViewsPath,"/layouts/header.tmpl"))
+	// filenames = append(filenames,path.Join(ViewsPath,"/index/index.tmpl"))
+	// filenames = append(filenames,path.Join(ViewsPath,"/layouts/footer.tmpl"))
+	// t,err := template.ParseFiles(filenames...)
+	// if err != nil {
+	// 	fmt.Printf("%v",err)
+	// }
+
+	// err = t.ExecuteTemplate(c.Ctx.ResponseWriter,"content",nil)
+
+	RenderTemplate(c.Ctx.ResponseWriter,tmpl,nil)
 
 }
 

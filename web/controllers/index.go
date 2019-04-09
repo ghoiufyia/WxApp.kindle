@@ -33,8 +33,16 @@ func (i *IndexController)Json ()  {
 
 func (i *IndexController)Index ()  {
 
-	i.Render()
+	// i.Render()
+	i.RenderTemplate("index.html")
 }
+
+func (i *IndexController)List ()  {
+
+	// i.Render()
+	i.RenderTemplate("list.html")
+}
+
 const (
 	ADDRESS           = "127.0.0.1:8000"
 )

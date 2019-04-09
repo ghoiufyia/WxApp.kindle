@@ -16,6 +16,7 @@ func init() {
 	// DoApp = NewApp()
 	StaticDir = make(map[string]string)
 	StaticDir["/favicon.ico"] = "/public/favicon.ico"
+	StaticDir["/public"] = "./public"
 }
 // 定义结构
 type App struct {
