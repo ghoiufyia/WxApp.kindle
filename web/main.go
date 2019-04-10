@@ -10,7 +10,7 @@ import (
 	"github.com/ghoiufyia/WxApp.kindle/web/routes"
 	// "github.com/ghoiufyia/WxApp.kindle/web/dogo/session"
 	"github.com/ghoiufyia/WxApp.kindle/web/dogo"
-	"github.com/ghoiufyia/WxApp.kindle/web/until/account"
+	// "github.com/ghoiufyia/WxApp.kindle/web/until/account"
 
 )
 
@@ -25,8 +25,8 @@ func main() {
 	dogo.InitLog(cfg.Log)
 	dogo.Info("测试")
 
-	acfg := account.NewConfig("./config/account.json");
-	dogo.Info(acfg.Name)
+	// acfg := account.NewConfig("./config/account.json");
+	// dogo.Info(acfg.Name)
 
 	// 初始化DB
 	dogo.InitDatabse(cfg.Database)

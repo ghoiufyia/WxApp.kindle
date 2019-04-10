@@ -30,8 +30,15 @@ func (i *IndexController)Json ()  {
 	i.RenderJson()
 }
 
+func (i *IndexController)Session ()  {
+	sessionid := i.Ctx.Session.GetSid()
+	i.Ctx.Session.Set("login_token","1")
+
+	i.RenderString(sessionid)
+}
 
 func (i *IndexController)Index ()  {
+	i.Ctx.Session.GetSid()
 
 	// i.Render()
 	i.RenderTemplate("index.html")

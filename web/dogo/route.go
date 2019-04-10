@@ -6,6 +6,8 @@ import (
 	"regexp"
 	"strings"
 	"encoding/json"
+	"github.com/ghoiufyia/WxApp.kindle/web/dogo/session"
+	// "fmt"
 )
 //单个路由
 type route struct {
@@ -90,11 +92,18 @@ func (rm *RouteMap)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	vc := reflect.New(myRoute.Controller)
 	// 执行Init方法
 	init := vc.MethodByName("Init")
-	in := make([]reflect.Value, 1)
+	
+	store,err := session.Session.SessionStart(w,r)
+	if err != nil {
+		Warning(err)
+	}
+
 	ctx := &Context{
 		ResponseWriter:w,
 		Request:r,
+		Session:store,
 	}
+	in := make([]reflect.Value, 1)
 	in[0] = reflect.ValueOf(ctx)
 	init.Call(in)
 

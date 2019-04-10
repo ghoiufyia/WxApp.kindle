@@ -5,9 +5,20 @@ import (
 	"sync"
 	"net/http"
 	"net/url"
+	// "bytes"
+	"encoding/json"
 	"github.com/RichardKnop/uuid"
 	"github.com/ghoiufyia/WxApp.kindle/web/until/config"
+	// "fmt"
 )
+
+var (
+	Session		*Manager
+)
+
+func init() {
+	Session = NewManager("config/session.json")
+}
 
 type Config struct {
 	cookieName	string
@@ -21,10 +32,9 @@ type Manager struct {
 	lock		sync.Mutex
 	handler		handler
 }
-var lock sync.Mutex
 
 var defaultConfig = Config {
-	cookieName:"sid_",
+	cookieName:"sid",
 	lifetime: 60*60*24,
 	handlerType: "file",
 	filePath: "storage/session",
@@ -62,7 +72,7 @@ func (m *Manager)getSid(r *http.Request) (string,error) {
 	return url.QueryUnescape(cookie.Value)
 }
 
-func (m *Manager)SessionStart(w http.ResponseWriter, r *http.Request) (session Store,err error) {
+func (m *Manager)SessionStart(w http.ResponseWriter, r *http.Request) (session *Store,err error) {
 	sid,err := m.getSid(r)
 	if err != nil {
 		return nil,err
@@ -70,7 +80,30 @@ func (m *Manager)SessionStart(w http.ResponseWriter, r *http.Request) (session S
 	if sid == "" {
 		sid = m.SeesionID()
 	}
-	 m.handler.Read(sid)
+	sessionValue,err := m.handler.Read(sid)
+	if err != nil {
+		return nil, err
+	}
+	cookie := &http.Cookie{
+		Name:     m.config.cookieName,
+		Value:    url.QueryEscape(sid),
+		Path:     "/",
+		HttpOnly: true,
+		Secure:   false,
+		Domain:   ".go.poetnoe.com",
+	}
+	// if m.config.EnableSetCookie {
+		http.SetCookie(w, cookie)
+	// }
+	r.AddCookie(cookie)
+
+	var sessionMap = make(map[string]interface{})
+	err = json.Unmarshal([]byte(sessionValue),&sessionMap)
+	return &Store{
+		sid: sid,
+		values: sessionMap,
+		handle: m.handler,
+	},nil
 
 	return nil,err
 }

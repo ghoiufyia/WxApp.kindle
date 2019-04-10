@@ -5,7 +5,6 @@ import (
 	// "html/template"
 	// "path"
 	"encoding/json"
-	
 )
 
 type Controller struct {
@@ -31,11 +30,14 @@ func (c *Controller)Init(ctx *Context) {
 
 func (c *Controller)Index() {
 }
-func (c *Controller)Finish() {}
 
 // 写入页面的数据
 func (c *Controller) SetData(key string,value interface{}) {
 	c.Data[key] = value
+}
+//扫尾工作
+func (c *Controller) Finish() {
+	c.Ctx.Session.Save()
 }
 
 func (c *Controller)Render() {
@@ -54,6 +56,13 @@ func (c *Controller)Render() {
 
 	RenderTemplate(c.Ctx.ResponseWriter,"index.html",nil)
 
+}
+
+func (c *Controller)RenderString(str string) {
+	responseWriter := c.Ctx.ResponseWriter
+	responseWriter.Header().Set("Content-Type", "text/plain; charset=utf-8")
+	responseWriter.WriteHeader(200)
+	responseWriter.Write([]byte(str))
 }
 
 func (c *Controller)RenderTemplate(tmpl string) {

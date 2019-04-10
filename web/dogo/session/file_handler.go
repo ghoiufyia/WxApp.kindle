@@ -23,23 +23,23 @@ func (s *FileHandler)Close() (interface{}) {
 	return true
 }
 
-func (s *FileHandler)Read(sessionId string) (Store,error) {
+func (s *FileHandler)Read(sessionId string) (string,error) {
 	path := s.savePath+"/"+sessionId
-	fileInfo,err := os.Stat(path)
+	fileInfo,_ := os.Stat(path)
 	if fileInfo == nil {
-		return nil,err
+		return "",nil
 	}
 	t := time.Now()
 	if fileInfo.ModTime().Unix() > t.Unix() + s.lifetime {
 		content,err := ioutil.ReadFile(path)
 		if err != nil {
-			return nil,err
+			return "",err
 		}
-		return content
+		return string(content),nil
 	}
 	// fmt.Printf("%+v",fileInfo)
 	// fmt.Printf("%+v",err)
-	return ""
+	return "",nil
 }
 
 func (s *FileHandler)Write(sessionId string,data string) (error) {
