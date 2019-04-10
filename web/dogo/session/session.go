@@ -90,7 +90,7 @@ func (m *Manager)SessionStart(w http.ResponseWriter, r *http.Request) (session *
 		Path:     "/",
 		HttpOnly: true,
 		Secure:   false,
-		Domain:   ".go.poetnoe.com",
+		Domain:   ".go.poetnote.com",
 	}
 	// if m.config.EnableSetCookie {
 		http.SetCookie(w, cookie)
