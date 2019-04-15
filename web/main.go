@@ -11,10 +11,11 @@ import (
 	// "github.com/ghoiufyia/WxApp.kindle/web/dogo/session"
 	"github.com/ghoiufyia/WxApp.kindle/web/dogo"
 	// "github.com/ghoiufyia/WxApp.kindle/web/until/account"
-
+	"runtime"
 )
 
 func main() {
+
 	// session.Read("qwert")
 	// return 
 
@@ -23,6 +24,10 @@ func main() {
 	cfg := dogo.NewConfig("")
 	// 初始化日志
 	dogo.InitLog(cfg.Log)
+	runtime.GOMAXPROCS(2)
+	dogo.Info(runtime.GOARCH)
+	dogo.Info(runtime.NumCPU())
+
 	dogo.Info("测试")
 
 	// acfg := account.NewConfig("./config/account.json");
