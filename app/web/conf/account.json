@@ -1,0 +1,8 @@
+{
+    "name":"poetnote1",
+    "platform":"poetnote",
+    "client_id":"1",
+    "client_secret":"Y1KU5rX5mCtEolcTOF44ftGGy8LRn0pH1jlO7qIU",
+    "auth_type":"password",
+    "call_back":"http://kindle.poetnote.com/poetnote/callback/"
+}
