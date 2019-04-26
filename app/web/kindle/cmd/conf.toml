@@ -3,7 +3,7 @@
 
 [kloveconf]
 	ServerAddr = "0.0.0.0"
-	ServerPort = 8080
+	ServerPort = 80
 
 [sessionconf]
     SessionIDLength = 32
