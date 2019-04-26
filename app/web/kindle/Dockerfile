@@ -10,9 +10,8 @@ ADD kindle /app/kindle
 
 ADD views /app/views
 ADD storage /app/storage
-ADD config /app/config
-ADD public /app/public
-
+ADD static /app/static
+ADD cmd/conf.toml /app/conf.toml
 
 # 运行服务端
-CMD ["./kindle"]
+CMD ["./kindle -conf conf.toml"]
