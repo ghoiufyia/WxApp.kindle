@@ -10,6 +10,6 @@
 	CookieLifeTime = 65525
 	CookieName = "KSID"
 	GcTime = 65525
-	Domain = "127.0.0.1"
+	Domain = ".poetnote.com"
 	handlerType = "file"
 	FilePath = "../storage/session"
