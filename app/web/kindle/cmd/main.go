@@ -6,7 +6,6 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
-	"fmt"
 	"github.com/ghoiufyia/kindle/app/web/kindle/conf"
 	"github.com/ghoiufyia/kindle/app/web/kindle/internal/routes"
 	"github.com/ghoiufyia/kindle/library/net/http/klove"
@@ -25,7 +24,6 @@ func main() {
 	
 	//set route and http.Handler
 	rg := routes.Init()
-	fmt.Printf("%+v\n",rg)
 
 	//绑定sessionmanager
 	rg.SetSessionmManager(sessionManager)

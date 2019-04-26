@@ -1,0 +1,3 @@
+package: WxApp.kindle
+import:
+- package: github.com/jinzhu/gorm

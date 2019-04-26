@@ -1,3 +1,6 @@
+[app]
+	RootDir = "./"
+
 [kloveconf]
 	ServerAddr = "0.0.0.0"
 	ServerPort = 8080
@@ -7,6 +10,6 @@
 	CookieLifeTime = 65525
 	CookieName = "KSID"
 	GcTime = 65525
-	Domain = ".poetnote.com"
+	Domain = "127.0.0.1"
 	handlerType = "file"
-	filePath = "storage/session"
+	FilePath = "../storage/session"
