@@ -14,4 +14,4 @@ ADD static /app/static
 ADD cmd/conf.toml /app/conf.toml
 
 # 运行服务端
-CMD ["./kindle -conf conf.toml"]
+CMD ["./kindle","-conf","conf.toml"]
