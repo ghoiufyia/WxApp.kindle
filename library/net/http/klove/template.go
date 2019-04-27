@@ -10,10 +10,12 @@ import (
 var (
 	loaded bool = false
 	Load bool = true
+    Str string = "aaaa"
 )
 
 func SetLoaded (status bool) {
 	loaded = status
+    Load = status
 }
 
 
