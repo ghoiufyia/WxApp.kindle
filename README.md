@@ -1,4 +1,4 @@
-# WxApp.kindle
-Send book to kindle by email on WxApp!
+# kindle
+Send book to kindle by email!
 
-Now I am writing web.And the email-service is ok,it use grpc,but is simple.
+Now I am writing web.And the email-service is a simple grpc demo.
