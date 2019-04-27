@@ -8,7 +8,9 @@ import (
 	"syscall"
 	"github.com/ghoiufyia/kindle/app/web/kindle/conf"
 	"github.com/ghoiufyia/kindle/app/web/kindle/internal/routes"
+	"github.com/ghoiufyia/kindle/app/web/kindle/internal/template"
 	"github.com/ghoiufyia/kindle/library/net/http/klove"
+	"github.com/ghoiufyia/kindle/app/web/kindle/internal/resource"
 )
 
 func main() {
@@ -29,6 +31,14 @@ func main() {
 	rg.SetSessionmManager(sessionManager)
 	engine.SetHandler(rg)
 
+	//载入模板
+	template.Init()
+
+	//资源和数据库操作
+	resource.New(conf.Conf)
+
+
+	//开启运行服务
 	if err := engine.Start(); err != nil {
 		panic(err)
 	}

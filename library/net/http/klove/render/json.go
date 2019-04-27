@@ -6,7 +6,7 @@ import (
 )
 
 type Json struct {
-	
+	Data 	interface{}
 }
 
 func (j Json)SetHeader(w http.ResponseWriter, key string, value string) {
@@ -17,12 +17,11 @@ func (j Json)SetContentType(w http.ResponseWriter) {
 }
 
 func (j Json)Render(w http.ResponseWriter) (err error) {
-	
+	j.SetContentType(w)
 	return writeJson(w,j)
 }
 
 func writeJson(w http.ResponseWriter,j Json) (err error) {
-	j.SetContentType(w)
 	json.NewEncoder(w).Encode(j)
 	// err = errors.WithStack(err)
 	return 

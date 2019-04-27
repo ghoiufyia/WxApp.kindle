@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	// "fmt"
+	"fmt"
 	// "github.com/ghoiufyia/WxApp.kindle/web/models"
 	// "database/sql"
 	// _ "github.com/go-sql-driver/mysql"
@@ -9,7 +9,7 @@ import (
 	// email_pb "github.com/ghoiufyia/WxApp.kindle/email_service/proto/email"
 	// "google.golang.org/grpc"
 	// "context"
-
+	"github.com/ghoiufyia/kindle/app/web/kindle/internal/resource"
 	"github.com/ghoiufyia/kindle/library/net/http/klove"
 
 )
@@ -20,11 +20,17 @@ type IndexController struct {
 	age		int32
 }
 
-// func (i *IndexController)Index ()  {
+func (i *IndexController)Index ()  {
+	res := resource.Get()
+
+	useremail,err := res.First()
+	fmt.Printf("%+v\n",useremail)
+	if err != nil {
+		fmt.Errorf("first error is %+v.",err)
+	}
 	
-// 	// i.Render()
-// 	i.RenderTemplate("index.html")
-// }
+	i.Ctx.RenderTemplate("index","sssss")
+}
 
 func (i *IndexController) Json ()  {
 	data := make(map[string]string, 0)

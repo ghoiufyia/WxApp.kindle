@@ -5,9 +5,7 @@ import (
 	"net/http"
 	"errors"
 	"log"
-	// "regexp"
-	// "strings"
-	// "encoding/json"
+	"strings"
 )
 //单个路由
 type route struct {
@@ -21,6 +19,7 @@ type route struct {
 type RouteGroup struct {
 	prefix		string
 	routes		map[string]route
+	static 		map[string]string
 	SessionmManager			*SessionManager
 }
 
@@ -29,6 +28,7 @@ func NewRouteGroup() *RouteGroup {
 	return &RouteGroup{
 		prefix:	"",
 		routes:	make(map[string]route, 0),
+		static: make(map[string]string,0),
 	}
 }
 
@@ -41,6 +41,12 @@ func (rg *RouteGroup)Prefix(prefix string) {
 func (rg *RouteGroup)SetSessionmManager(sm *SessionManager){
 	rg.SessionmManager = sm
 }
+
+func (rg *RouteGroup)Static(url string,path string) error{
+	rg.static[url] = path
+	return nil
+}
+
 
 //添加路由
 func (rg *RouteGroup)Route(method string, pattern string,c ControllerInterface,action string,name string) error{
@@ -68,6 +74,7 @@ func (rg *RouteGroup)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		myRoute route
 		ctx	*Context
 	)
+
 	ctx = &Context{
 		ResponseWriter:w,
 		Request:r,
@@ -78,9 +85,20 @@ func (rg *RouteGroup)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		sess := rg.SessionmManager.SessionStart(ctx)
 		ctx.Session = sess
 	}
+
 	// 匹配路由
 	pattern := r.URL.Path
 	
+	// Log.Info("%s\n",requestPath)
+	// 匹配静态文件，后可由nginx定向
+	for url,path := range rg.static {
+		if strings.HasPrefix(pattern,url) {
+			file := path + pattern[len(url):]
+			http.ServeFile(w,r,file)
+			return
+		}
+	}
+
 	myRoute,ok := rg.routes[pattern]
 	if !ok {
 		ctx.NotFound()
@@ -88,15 +106,7 @@ func (rg *RouteGroup)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Printf("%+v\n",myRoute)
 
-	// Log.Info("%s\n",requestPath)
-	// 匹配静态文件，后可由nginx定向
-	// for url,path := range StaticDir {
-	// 	if strings.HasPrefix(requestPath,url) {
-	// 		file := path + requestPath[len(url):]
-	// 		http.ServeFile(w,r,file)
-	// 		return
-	// 	}
-	// }
+	
 
 	// 反射出controller新对象
 	vc := reflect.New(myRoute.controller)

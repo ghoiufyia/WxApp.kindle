@@ -1,4 +1,4 @@
-package dogo
+package mysql
 
 import (
 	// "database/sql"
@@ -6,35 +6,20 @@ import (
 	"fmt"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/jinzhu/gorm"
-	// "errors"
 )
 
-var (
-	DoDB *gorm.DB
-)
-
-func InitDatabse(cfg DatabaseConfig) {
-	var err error
-	DoDB,err = NewDB(cfg)
-	if err != nil {
-		Info("DoDB error:%+v",DoDB)
-	}
+type Config struct {
+	Type         string `default:"mysql"`
+	Host         string `default:"localhost"`
+	Port         int    `default:"3306"`
+	User         string `default:"gravitee"`
+	Password     string `default:"gravitee"`
+	DatabaseName string `default:"gravitee"`
+	MaxIdleConns int    `default:"5"`
+	MaxOpenConns int    `default:"5"`
 }
 
-func GetDB() *gorm.DB {
-	if nil != DoDB {
-		return DoDB
-	}
-	cfg := NewConfig("")
-	var err error
-	DoDB,err = NewDB(cfg.Database)
-	if err != nil {
-		Info("DoDB error:%+v",DoDB)
-	}
-	return DoDB
-}
-
-func NewDB(cfg DatabaseConfig) (*gorm.DB,error) {
+func NewMysql(cfg *Config) (*gorm.DB,error) {
 	if cfg.Type == "mysql" {
 		args := fmt.Sprintf(
 			"%s:%s@(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",

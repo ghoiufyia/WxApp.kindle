@@ -2,7 +2,7 @@ package klove
 
 import (
 	"net/http"
-	"encoding/json"
+	"github.com/ghoiufyia/kindle/library/net/http/klove/render"
 )
 // 保存一次请求
 type Context struct{
@@ -19,7 +19,10 @@ func (ctx *Context) Set(rw http.ResponseWriter, r *http.Request) {
 func (c *Context)SetHttpStatus(code int) {
 	c.ResponseWriter.WriteHeader(code)
 }
-
+//设置header头
+func (c *Context)SetHeader(key string, value string) {
+	c.ResponseWriter.Header().Set(key,value)
+}
 // 未发现路由
 func (c *Context)NotFound() {
 	w := c.ResponseWriter
@@ -43,13 +46,27 @@ func (c *Context)RenderText() {
 }
 
 // 返回json数据
-func (c *Context)RenderJson(data interface{}) {
+// func (c *Context)RenderJson(data interface{}) {
+// 	c.SetHttpStatus(http.StatusOK)
+// 	c.ResponseWriter.Header().Set("Content-Type", "application/json; charset=utf-8")
+// 	json.NewEncoder(c.ResponseWriter).Encode(data)
+// }
+
+func (c *Context)Render(r render.Render) {
 	c.SetHttpStatus(http.StatusOK)
-	c.ResponseWriter.Header().Set("Content-Type", "application/json; charset=utf-8")
-	json.NewEncoder(c.ResponseWriter).Encode(data)
+	r.Render(c.ResponseWriter)
 }
 
-func (c *Context) RenderTemplate(template string,data interface{}) {
-	
+func (c *Context)RenderJson(data interface{}) {
+	c.Render(render.Json{
+		Data:data,
+	})
+}
+
+func (c *Context)RenderTemplate(template string,data interface{}) {
+	c.Render(render.Template{
+		Name:template,
+		Data:data,
+	})
 }
 

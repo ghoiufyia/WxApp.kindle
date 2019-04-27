@@ -8,12 +8,14 @@ import (
 	"flag"
 	"github.com/BurntSushi/toml"
 	"github.com/ghoiufyia/kindle/library/net/http/klove"
+	"github.com/ghoiufyia/kindle/library/database/mysql"
 )
 
 type Config struct {
 	AppConfig	*AppConfig
 	KloveConf	*klove.ServerConfig
 	SessionConf	*klove.SessionConfig
+	OrmConf		*mysql.Config
 }
 
 type AppConfig struct {

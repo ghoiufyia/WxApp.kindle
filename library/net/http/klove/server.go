@@ -31,7 +31,6 @@ func NewWebEngine(conf *ServerConfig) (*Engine) {
 		middleware:		make([]HandlerFunc,0),
 		conf:			conf,
 	}
-	SetLoaded(true)
 	return engine
 }
 
@@ -51,6 +50,7 @@ func (e *Engine)Start() error{
 		Addr:addr,
 		Handler:handler,
 	}
+	fmt.Printf("server is serve on %s...\n",addr)
 	//开线程轮询server
 	go func(){
 		e.server = server
@@ -58,7 +58,6 @@ func (e *Engine)Start() error{
 		if err != nil {
 			panic(err)
 		}
-		fmt.Printf("server is serve on %s.",addr)
 	}()
 	return nil
 }
