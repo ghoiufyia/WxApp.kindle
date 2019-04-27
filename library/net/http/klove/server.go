@@ -31,6 +31,7 @@ func NewWebEngine(conf *ServerConfig) (*Engine) {
 		middleware:		make([]HandlerFunc,0),
 		conf:			conf,
 	}
+	SetLoaded(true)
 	return engine
 }
 

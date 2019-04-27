@@ -11,6 +11,11 @@ var (
 	loaded bool = false
 )
 
+func SetLoaded (status bool) {
+	loaded = status
+}
+
+
 // func loadTemplates() {
 // 	if loaded {
 // 		return
