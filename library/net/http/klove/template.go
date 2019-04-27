@@ -9,7 +9,7 @@ import (
 
 var (
 	loaded bool = true
-	loaded1 bool = flase
+	loaded1 bool = false
 	Load bool = true
 	Load1 bool = false
     Str string = "aaaa"
