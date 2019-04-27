@@ -9,6 +9,7 @@ import (
 
 var (
 	loaded bool = false
+	Load bool = true
 )
 
 func SetLoaded (status bool) {
