@@ -10,14 +10,14 @@
 	CookieLifeTime = 65525
 	CookieName = "KSID"
 	GcTime = 65525
-	Domain = ".poetnote.com"
+	Domain = "127.0.0.1"
 	handlerType = "file"
-	FilePath = "../storage/session"
+	FilePath = "./storage/session"
 
 [ormconf]
 	Type         = "mysql"
 	Host         = "101.132.37.148"
-	Port         = 3306
+	Port         = 3307
 	User         = "root"
 	Password     = "Sn93007997"
 	DatabaseName = "kindle"
