@@ -16,10 +16,10 @@
 
 [ormconf]
 	Type         = "mysql"
-	Host         = "101.132.37.148"
+	Host         = "localhost"
 	Port         = 3307
 	User         = "root"
-	Password     = "Sn93007997"
+	Password     = "****"
 	DatabaseName = "kindle"
 	MaxIdleConns = 5
 	MaxOpenConns = 5
