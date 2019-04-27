@@ -8,8 +8,10 @@ import (
 )
 
 var (
-	loaded bool = false
+	loaded bool = true
+	loaded1 bool = flase
 	Load bool = true
+	Load1 bool = false
     Str string = "aaaa"
 )
 
