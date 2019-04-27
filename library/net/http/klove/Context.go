@@ -19,10 +19,11 @@ func (ctx *Context) Set(rw http.ResponseWriter, r *http.Request) {
 func (c *Context)SetHttpStatus(code int) {
 	c.ResponseWriter.WriteHeader(code)
 }
+
 // 未发现路由
 func (c *Context)NotFound() {
 	w := c.ResponseWriter
-	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	w.WriteHeader(http.StatusNotFound)
 	w.Write([]byte("404 not found"))
 }
@@ -34,10 +35,21 @@ func (c *Context)NotFound() {
 // 	json.NewEncoder(w).Encode()
 // }
 
+func (c *Context)RenderText() {
+	w := c.ResponseWriter
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+	w.WriteHeader(http.StatusNotFound)
+	w.Write([]byte("404 not found"))
+}
+
 // 返回json数据
 func (c *Context)RenderJson(data interface{}) {
 	c.SetHttpStatus(http.StatusOK)
 	c.ResponseWriter.Header().Set("Content-Type", "application/json; charset=utf-8")
 	json.NewEncoder(c.ResponseWriter).Encode(data)
+}
+
+func (c *Context) RenderTemplate(template string,data interface{}) {
+	
 }
 

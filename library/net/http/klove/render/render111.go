@@ -79,8 +79,6 @@ func loadTemplates() {
 	}
 
 	loaded = true
-
-
 }
 
 func (c *Controller)Render() {

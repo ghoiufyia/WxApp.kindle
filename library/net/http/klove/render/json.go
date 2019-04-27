@@ -17,9 +17,13 @@ func (j Json)SetContentType(w http.ResponseWriter) {
 }
 
 func (j Json)Render(w http.ResponseWriter) (err error) {
+	
+	return writeJson(w,j)
+}
+
+func writeJson(w http.ResponseWriter,j Json) (err error) {
 	j.SetContentType(w)
-	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(j)
 	// err = errors.WithStack(err)
-	return nil
+	return 
 }
