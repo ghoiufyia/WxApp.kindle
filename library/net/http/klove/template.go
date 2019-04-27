@@ -17,7 +17,9 @@ var (
 
 func SetLoaded (status bool) {
 	loaded = status
+	loaded1 = status
 	Load = status
+	Load1 = status
 	Str = "sss"
 }
 
