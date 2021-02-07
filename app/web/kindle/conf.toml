@@ -1,0 +1,25 @@
+[app]
+	RootDir = "./"
+
+[kloveconf]
+	ServerAddr = "0.0.0.0"
+	ServerPort = 8080
+
+[sessionconf]
+    SessionIDLength = 32
+	CookieLifeTime = 65525
+	CookieName = "KSID"
+	GcTime = 65525
+	Domain = "127.0.0.1"
+	handlerType = "file"
+	FilePath = "./storage/session"
+
+[ormconf]
+	Type         = "mysql"
+	Host         = "101.132.37.148"
+	Port         = 3307
+	User         = "root"
+	Password     = "Sn93007997"
+	DatabaseName = "kindle"
+	MaxIdleConns = 5
+	MaxOpenConns = 5

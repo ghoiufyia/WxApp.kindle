@@ -1,0 +1,80 @@
+syntax = "proto3";
+package kindle.service.email;
+
+service EmailService {
+
+    rpc CreateEmail (CreateEmailRequest) returns (CreateEmailResponse) {}
+    // rpc EditEmail (EditEmailRequest) returns (EditEmailResponse) {}
+
+    // // 1.发送
+    // rpc Create (CreateRequest) returns (CreateResponse){}
+
+    // // 2.查询
+    // rpc Select (SelectRequest) returns (SelectResponse){}
+
+    // // 3.删除某一条
+    // rpc Delete (DeleteRequest) returns (DeleteResponse){}
+
+}
+
+message CreateEmailRequest{
+    uint32 UserId = 1;
+    string Email = 2;
+    
+}
+
+message CreateEmailResponse {
+    int32 Code = 1;
+    string Msg = 2;
+}
+// message EditEmailRequest{
+//     string Id = 1;
+//     string Email = 2;
+// }
+
+// message EditEmailResponse {
+//     int32 Code = 1;
+//     string Msg = 2;
+// }
+
+// // 发送请求
+// message CreateRequest {
+//     string UserId = 1;
+//     string file = 2;
+// }
+// // 发送回报
+// message CreateResponse {
+//     int64 Code = 1;
+//     string Msg = 2;
+// }
+// // 查询请求
+// message SelectRequest {
+//     string UserId = 1;
+//     int64 Limit = 2;
+//     int64 Page = 3;
+// }
+// // email数据
+// message Email {
+//     string Id = 1;
+//     string UserId = 2;
+//     string ToEmail = 3;
+//     string FilePath = 4;
+//     string CreatedAt = 5;
+//     string UpdatedAt = 6;
+// }
+// // 查询回报
+// message SelectResponse {
+//     int64 Code = 1;
+//     string Msg = 2;
+//     int64 Count = 3;
+//     repeated Email Data = 4;
+// }
+// // 删除请求
+// message DeleteRequest {
+//     int64 Id = 1;
+// }
+// // 删除回报
+// message DeleteResponse {
+//     int64 Code = 1;
+//     string Msg = 2;
+// }

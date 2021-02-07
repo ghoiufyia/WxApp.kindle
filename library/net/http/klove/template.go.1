@@ -1,0 +1,45 @@
+package klove
+
+import (
+	"html/template"
+	"net/http"
+	"fmt"
+)
+
+var (
+	tmpList map[string]*template.Template = make(map[string]*template.Template)
+)
+//添加一个模板
+func AddTemplate(name string,files ...string) (err error) {
+	if _, ok := tmpList[name];ok {
+		return fmt.Errorf("The template %s is exist", name)
+	}
+	tmpList[name] = template.Must(template.ParseFiles(files...))
+	return
+}
+//获取所有模板
+func GetTemplate() (interface{}) {
+	return tmpList
+}
+//执行模板
+func ExecTemplate(w http.ResponseWriter, name string,data interface{}) (err error) {
+	// Ensure the template exists in the map.
+	tmpl, ok := tmpList[name]
+	if !ok {
+		return fmt.Errorf("The template %s does not exist", name)
+	}
+
+	err = tmpl.ExecuteTemplate(w, "base", data)
+	if err != nil {
+		return err
+	}
+
+	// // The X-Frame-Options HTTP response header can be used to indicate whether
+	// // or not a browser should be allowed to render a page in a <frame>,
+	// // <iframe> or <object> . Sites can use this to avoid clickjacking attacks,
+	// // by ensuring that their content is not embedded into other sites.
+	// w.Header().Set("X-Frame-Options", "deny")
+	// // Set the header and write the buffer to the http.ResponseWriter
+	// w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	return
+}

@@ -1,0 +1,104 @@
+package dogo
+
+import (
+	"database/sql"
+	_ "github.com/go-sql-driver/mysql"
+	"fmt"
+	// "errors"
+)
+
+var (
+	MyDB *DoDB
+)
+
+type DoDB struct{
+	db *sql.DB
+}
+
+func GetDB() *DoDB {
+	if nil != MyDB {
+		return MyDB
+	}
+	cfg := NewConfig("")
+	var err error
+	MyDB,err = NewDB(cfg.Database)
+	if err != nil {
+		Log.Info("DoDB error:%+v",MyDB)
+	}
+	return MyDB
+}
+
+func NewDB(cfg DatabaseConfig) (*DoDB,error) {
+	var db *sql.DB
+	var err error
+	if cfg.Type == "mysql" {
+		args := fmt.Sprintf(
+			"%s:%s@(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",
+			cfg.User,
+			cfg.Password,
+			cfg.Host,
+			cfg.Port,
+			cfg.DatabaseName,
+		)
+		db,err = sql.Open(cfg.Type,args)
+		if err != nil {
+			return nil,err
+		}
+		// Max idle connections
+		db.SetMaxIdleConns(cfg.MaxIdleConns)
+
+		// Max open connections
+		db.SetMaxOpenConns(cfg.MaxOpenConns)
+
+		return &DoDB{db:db}, nil
+	}
+	return nil, fmt.Errorf("Database type %s not supported", cfg.Type)
+}
+
+func (db *DoDB) Raw(sql string, args ...interface{}) (interface{},error) {
+	rows,err := db.db.Query(sql,args)
+	if err != nil {
+		return nil,err
+	}
+	return rows,nil
+	
+}
+
+
+// func GetDB() *sql.DB {
+// 	if nil != DoDB {
+// 		return DoDB
+// 	}
+// 	cfg := NewConfig("")
+// 	var err error
+// 	DoDB,err = NewDB(cfg.Database)
+// 	if err != nil {
+// 		Log.Info("DoDB error:%+v",DoDB)
+// 	}
+// 	return DoDB
+// }
+
+// func NewDB(cfg DatabaseConfig) (*sql.DB,error) {
+// 	if cfg.Type == "mysql" {
+// 		args := fmt.Sprintf(
+// 			"%s:%s@(%s:%d)/%s?charset=utf8&parseTime=True&loc=Local",
+// 			cfg.User,
+// 			cfg.Password,
+// 			cfg.Host,
+// 			cfg.Port,
+// 			cfg.DatabaseName,
+// 		)
+// 		db,err := sql.Open(cfg.Type,args)
+// 		if err != nil {
+// 			return db,err
+// 		}
+// 		// Max idle connections
+// 		db.SetMaxIdleConns(cfg.MaxIdleConns)
+
+// 		// Max open connections
+// 		db.SetMaxOpenConns(cfg.MaxOpenConns)
+
+// 		return db, nil
+// 	}
+// 	return nil, fmt.Errorf("Database type %s not supported", cfg.Type)
+// }
