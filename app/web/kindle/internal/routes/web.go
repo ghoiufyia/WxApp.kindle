@@ -14,6 +14,12 @@ func Init() (*klove.RouteGroup) {
 	rg.Route("GET","/json/",&controllers.IndexController{},"Json","接口")
 	// rg.Route("GET","/rpc/",&controllers.IndexController{},"Rpc","接口")
 	
+	//kindle
+	rg.Route("GET","/kindle/bind/",&controllers.KindleController{},"KBindForm","绑定页面")
+	rg.Route("POST","/kindle/bind/",&controllers.KindleController{},"KBind","绑定")
+
+
+
 	//静态路由
 	rg.Static("/static/","./static/")
 

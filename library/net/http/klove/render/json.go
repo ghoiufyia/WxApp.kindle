@@ -22,7 +22,7 @@ func (j Json)Render(w http.ResponseWriter) (err error) {
 }
 
 func writeJson(w http.ResponseWriter,j Json) (err error) {
-	json.NewEncoder(w).Encode(j)
+	json.NewEncoder(w).Encode(j.Data)
 	// err = errors.WithStack(err)
 	return 
 }

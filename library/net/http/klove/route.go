@@ -106,8 +106,6 @@ func (rg *RouteGroup)ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Printf("%+v\n",myRoute)
 
-	
-
 	// 反射出controller新对象
 	vc := reflect.New(myRoute.controller)
 	// 执行Init方法,prev

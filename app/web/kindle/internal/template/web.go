@@ -9,6 +9,8 @@ func Init() {
 	files := []string{"./views/index/index.html","./views/layouts/base.html"}
 	render.AddTemplate("index",files...)
 
+	files = []string{"./views/kindle/bind.html","./views/layouts/base.html"}
+	render.AddTemplate("kbind_form",files...)
 
 	// var tmp = make(map[string][]string)
 	// tmp = map[string][]string{

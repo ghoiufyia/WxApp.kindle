@@ -29,7 +29,7 @@ func (i *IndexController)Index ()  {
 		fmt.Errorf("first error is %+v.",err)
 	}
 	
-	i.Ctx.RenderTemplate("index","sssss")
+	i.Ctx.RenderTemplate("index","base","sssss")
 }
 
 func (i *IndexController) Json ()  {

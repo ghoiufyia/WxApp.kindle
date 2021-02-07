@@ -8,6 +8,7 @@ import (
 
 type Template struct {
 	Name 	string
+	Layout	string
 	Data 	interface{}
 }
 
@@ -49,10 +50,19 @@ func execTemplate(w http.ResponseWriter, t Template) (err error) {
 		return fmt.Errorf("The template %s does not exist", t.Name)
 	}
 
-	err = tmpl.ExecuteTemplate(w, "base", t.Data)
-	if err != nil {
-		return err
+	if t.Layout == "" {
+		err = tmpl.Execute(w, t.Data)
+		if err != nil {
+			return err
+		}
+	} else {
+		err = tmpl.ExecuteTemplate(w, "base", t.Data)
+		if err != nil {
+			return err
+		}
 	}
+
+	
 
 	// // The X-Frame-Options HTTP response header can be used to indicate whether
 	// // or not a browser should be allowed to render a page in a <frame>,
